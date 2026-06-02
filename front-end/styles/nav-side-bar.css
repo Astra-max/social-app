@@ -1,0 +1,25 @@
+.ns-cont {
+    background-color: var(--fade-background);
+    max-width: 30%;
+    width: 16%;
+    height: 100vh;
+    border-radius: 0.4rem;
+}
+
+.ns-main-cont {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 2rem 1rem;
+}
+
+.ns-side-elements {
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    color: var(--primary-theme);
+}
+
+.ns-side-elements:hover {
+    color: var(--primary-theme);
+}
