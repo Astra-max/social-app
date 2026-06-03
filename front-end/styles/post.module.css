@@ -1,0 +1,50 @@
+.postData {
+    background-color: #3b3b3b;
+    outline: none;
+    width: 80%;
+    padding: 0.7rem 2rem;
+    border-radius: 0.4rem;
+}
+
+.postHomeMain {
+    display: flex;
+    align-items: center;
+}
+
+.postHomeCont {
+    background-color: var(--fade-background);
+    padding: 2rem 0.8rem;
+    border-radius: 0.4rem;
+}
+
+.postParentCont {
+    margin-right: 1rem;
+}
+
+.iconPostDisplay {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0.3rem;
+    padding-top: 3rem;
+}
+
+.iconFlex {
+    display: flex;
+    gap: 0.7rem;
+}
+
+.postUserProfile {
+    display: flex;
+    padding: 2rem 0rem;
+}
+
+.userImageName {
+    display: flex;
+}
+
+.userPostDisplay {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
