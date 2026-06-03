@@ -1,9 +1,10 @@
-import NavSideBar from "@/components/sidebar/sidebar";
+import HomeDisplayLayout from "@/components/main/display";
+
 
 export default function Home() {
   return (
-    <div className="">
-      <NavSideBar />
+    <div>
+      <HomeDisplayLayout />
     </div>
   );
 }
