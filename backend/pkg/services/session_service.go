@@ -24,10 +24,10 @@ func (s *SessionService) CreateSession(userID string) (*models.Session, error) {
 		ExpiresAt: time.Now().Add(24 * time.Hour),
 	}
 
-	err := s.repo.Create(session)
+	err := s.repo.CreateSession(session)
 	return session, err
 }
 
 func (s *SessionService) GetSession(id string) (*models.Session, error) {
-	return s.repo.GetByID(id)
+	return s.repo.GetSessionByID(id)
 }

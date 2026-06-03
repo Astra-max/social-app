@@ -21,16 +21,18 @@ func NewDB() *sql.DB {
     return db
 }
 
-func runMigrations() {
-    m, err := migrate.New(
-        "file://backend/pkg/db/migrations/sqlite",
-        "sqlite3://app.db",
-    )
+func runMigrations(db) {
+    m, err := migrate.NewWithDatabaseInstance(
+    "file://backend/pkg/db/migrations/sqlite", 
+    "sqlite3",                                   
+    driver,
+)
+    
     if err != nil {
         log.Fatal(err)
     }
 
-    if err := m.Up(); err != nil && err.Error() != "no change" {
+    if err := m.Up(); err != nil && err.Error() != migrate.ErrNoChange{
         log.Fatal(err)
     }
 }
