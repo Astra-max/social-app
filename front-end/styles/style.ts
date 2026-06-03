@@ -1,7 +1,7 @@
 export const navSideBar = {
     backgroundColor: "var(--fade-background)",
     maxWidth: "30%",
-    width: "16%",
+    width: "30%",
     height: "100vh",
     borderRadius: "0.4rem",
 }
@@ -23,4 +23,12 @@ export const nonActive = {
     display: "flex",
     alignItems: "center",
     gap: "0.8rem"
+}
+
+export const createPostBtn = {
+    backgroundColor: "var(--primary-theme)",
+    padding: "0.6rem 1rem",
+    cursor: "pointer",
+    borderRadius: "0.4rem",
+    fontWeigth: "bold"
 }
