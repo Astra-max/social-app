@@ -9,6 +9,8 @@ export function Button({data}: {data :ButtonData}) {
         <button 
         onClick={()=> data.onClick}
         disabled={pending}
+        type={data.type}
+        style={data.style}
         >
             {pending ? "searching...." : data.text}
         </button>
