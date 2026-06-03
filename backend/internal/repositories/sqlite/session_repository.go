@@ -2,7 +2,7 @@ package sqlite
 
 import (
 	"database/sql"
-	"social-network/backend/pkg/models"
+	"social-network/backend/internal/models"
 )
 
 type sessionRepository struct {

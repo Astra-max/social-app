@@ -1,9 +1,16 @@
 module social-network
 
-go 1.25.0
+go 1.23.0
 
 require (
-	github.com/golang-migrate/migrate/v4 v4.19.1 // indirect
-	github.com/google/uuid v1.6.0 // indirect
-	github.com/mattn/go-sqlite3 v1.14.44 // indirect
+	github.com/golang-migrate/migrate/v4 v4.18.1
+	github.com/google/uuid v1.6.0
+	github.com/mattn/go-sqlite3 v1.14.44
+	golang.org/x/crypto v0.27.0
+)
+
+require (
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
 )

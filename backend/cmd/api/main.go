@@ -2,10 +2,18 @@ package main
 
 import (
 	"log"
-	"social-network/backend/pkg/db/sqlite"
+	"net/http"
+	"social-network/backend/internal/app"
 )
 
 func main() {
-	_ = sqlite.NewDB()
-	log.Println("Server started & DB initialized")
+	application, err := app.New()
+	if err != nil {
+		log.Fatal("failed to start app: ", err)
+	}
+
+	log.Println("server listening on :8080")
+	if err := http.ListenAndServe(":8080", application.Router); err != nil {
+		log.Fatal(err)
+	}
 }
