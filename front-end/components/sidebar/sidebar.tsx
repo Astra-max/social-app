@@ -1,29 +1,24 @@
 "use client"
 
-import { sidebarNav } from "@/dummy";
+import { sidebarNav } from "@/data";
+import { RootState } from "@/store/store";
 import "@/styles/nav-side-bar.css"
 import { activeRoute, nonActive, navSideBar } from "@/styles/style";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Columns2 } from "lucide-react";
-import { useState } from "react";
-
-
-interface Props {
-    onToggle: ()=> void;
-}
+import { useSelector } from "react-redux";
 
 
 export default function NavSideBar() {
     const path = usePathname()
-    const [toggle, setToggle] = useState<boolean>(false)
+    const { toggle } = useSelector((state: RootState) => state.toggleSideBar)
 
-    const newStyle = {...navSideBar, width: "3%", overflow: "hidden"}
+    const newStyle = {...navSideBar, width: "2%", overflow: "hidden"}
 
     return (
         <div style={toggle ? newStyle : navSideBar}>
-            <Logo onToggle={() => setToggle((prev)=> !prev)} />
+            <Logo />
             <div className="ns-main-cont">
                 {sidebarNav.map((v) => {
                     return (
@@ -45,7 +40,7 @@ export default function NavSideBar() {
     )
 }
 
-export function Logo({ onToggle }: Props) {
+export function Logo() {
 
     const styleLogo = {
         padding: "2rem 1rem",
@@ -54,17 +49,10 @@ export function Logo({ onToggle }: Props) {
         justifyContent: "space-between"
     }
 
-    const styleCollapseIcon = {
-        cursor: "pointer",
-    }
-
     return (
         <div style={styleLogo}>
             <div>
-                <Image src={"/social-network-logo.svg"} width={50} height={50} alt="social-app logo" />
-            </div>
-            <div>
-                <Columns2 size={24} style={styleCollapseIcon} onClick={onToggle} />
+                <Image src={"/social-network-logo.svg"} width={50} height={50} alt="social-app logo" loading="eager" />
             </div>
         </div>
     )
