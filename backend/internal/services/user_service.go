@@ -37,7 +37,7 @@ func (s *UserService) Register(req *models.RegisterRequest) (*models.User, error
 		LastName:    req.LastName,
 		DateOfBirth: req.DateOfBirth,
 		Avatar:      req.Avatar,
-		NickName:    req.Nickname,
+		NickName:    req.NickName,
 		AboutMe:     req.AboutMe,
 		IsPublic:    true,
 	}
@@ -61,4 +61,64 @@ func (s *UserService) Login(req *models.LoginRequest) (*models.User, error) {
 	}
 
 	return user, nil
+}
+
+func (s *UserService) GetProfile(viewerID, profileID string) (*models.User, error) {
+	user, err := s.repo.GetUserByID(profileID)
+	if err != nil {
+		return nil, errors.New("user not found")
+	}
+
+	// own profile — always visible
+	if viewerID == profileID {
+		return user, nil
+	}
+
+	// public profile — visible to everyone
+	if user.IsPublic {
+		return user, nil
+	}
+
+	// private profile — only visible to followers
+	// we pass this check to the handler layer using a sentinel error
+	// so the handler knows to check followers table
+	return user, errors.New("private")
+}
+
+func (s *UserService) UpdateProfile(userID string, req *models.UpdateProfileRequest) (*models.User, error) {
+	user, err := s.repo.GetUserByID(userID)
+	if err != nil {
+		return nil, errors.New("user not found")
+	}
+
+	// only update fields that were sent
+	if req.FirstName != "" {
+		user.FirstName = req.FirstName
+	}
+	if req.LastName != "" {
+		user.LastName = req.LastName
+	}
+	if req.DateOfBirth != "" {
+		user.DateOfBirth = req.DateOfBirth
+	}
+	if req.Nickname != "" {
+		user.NickName = req.Nickname
+	}
+	if req.AboutMe != "" {
+		user.AboutMe = req.AboutMe
+	}
+
+	if err := s.repo.UpdateUser(user); err != nil {
+		return nil, errors.New("failed to update profile")
+	}
+
+	return user, nil
+}
+
+func (s *UserService) UpdatePrivacy(userID string, isPublic bool) error {
+	return s.repo.UpdatePrivacy(userID, isPublic)
+}
+
+func (s *UserService) UpdateAvatar(userID, avatarPath string) error {
+	return s.repo.UpdateAvatar(userID, avatarPath)
 }

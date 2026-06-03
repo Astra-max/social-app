@@ -51,3 +51,26 @@ func (r *userRepository) GetUserByID(id string) (*models.User, error) {
 	}
 	return &u, nil
 }
+
+func (r *userRepository) UpdateUser(user *models.User) error {
+	_, err := r.db.Exec(`
+		UPDATE users
+		SET first_name = ?, last_name = ?, date_of_birth = ?, nickname = ?, about_me = ?
+		WHERE id = ?
+	`, user.FirstName, user.LastName, user.DateOfBirth, user.NickName, user.AboutMe, user.ID)
+	return err
+}
+
+func (r *userRepository) UpdateAvatar(userID, avatarPath string) error {
+	_, err := r.db.Exec(`
+		UPDATE users SET avatar = ? WHERE id = ?
+	`, avatarPath, userID)
+	return err
+}
+
+func (r *userRepository) UpdatePrivacy(userID string, isPublic bool) error {
+	_, err := r.db.Exec(`
+		UPDATE users SET is_public = ? WHERE id = ?
+	`, isPublic, userID)
+	return err
+}
