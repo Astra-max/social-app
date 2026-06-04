@@ -18,6 +18,12 @@ export interface PostData {
     timePosted: string;
     description: string;
     postImage: string;
+    location: string;
+    likes: number;
+    comments: number;
+    shares: number;
+    tags: string[];
+    postType: string;
 }
 
 export interface UserProfile {

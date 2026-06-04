@@ -1,204 +1,188 @@
 import { UserPostData } from "@/types";
 
 export const allPostData: UserPostData[] = [
-    {
-        postId: 1, 
-        userId: 101,
-        status: "public",
-        fullName: "Astra Max", 
-        userProfileImage: "/maodongo.jpeg", 
-        timePosted: new Date().toLocaleDateString(), 
-        description: "Setting up my new workspace layout today. Loving the minimalist vibe! 🚀", 
-        postImage: "/posts/workspace.jpeg"
-    },
-    {
-        postId: 2, 
-        userId: 102,
-        status: "private",
-        fullName: "Elena Rostova", 
-        userProfileImage: "/profiles/user2.jpeg", 
-        timePosted: "02/06/2026", 
-        description: "Just finished debugging a nasty layout shift issue with Next.js grids. Feels amazing to fix it.", 
-        postImage: ""
-    },
-    {
-        postId: 3, 
-        userId: 103,
-        status: "public",
-        fullName: "Marcus Vance", 
-        userProfileImage: "/profiles/user3.jpeg", 
-        timePosted: "02/06/2026", 
-        description: "Early morning hike views are unmatched. Nature is the best reset button.", 
-        postImage: "/posts/nature.jpeg"
-    },
-    {
-        postId: 4, 
-        userId: 104,
-        status: "public",
-        fullName: "Sarah Jenkins", 
-        userProfileImage: "/profiles/user4.jpeg", 
-        timePosted: "01/06/2026", 
-        description: "Who else is experimenting with React 19 form actions? The form status integration handles states so cleanly.", 
-        postImage: ""
-    },
-    {
-        postId: 5, 
-        userId: 105,
-        status: "private",
-        fullName: "David Chen", 
-        userProfileImage: "/profiles/user5.jpeg", 
-        timePosted: "31/05/2026", 
-        description: "Tried a new coffee roasting spot downtown. The vanilla bean latte is highly recommended! ☕", 
-        postImage: "/posts/coffee.jpeg"
-    },
-    {
-        postId: 6, 
-        userId: 106,
-        status: "public",
-        fullName: "Amina Yusuf", 
-        userProfileImage: "/profiles/user6.jpeg", 
-        timePosted: "30/05/2026", 
-        description: "Excited to launch our team group platform tomorrow. Lots of hard design work paying off.", 
-        postImage: "/posts/launch.jpeg"
-    },
-    {
-        postId: 7, 
-        userId: 107,
-        status: "public",
-        fullName: "Liam O'Connor", 
-        userProfileImage: "/profiles/user7.jpeg", 
-        timePosted: "29/05/2026", 
-        description: "Can someone recommend a great animation library that plays perfectly with Next.js App Router transitions?", 
-        postImage: ""
-    },
-    {
-        postId: 8, 
-        userId: 108,
-        status: "private",
-        fullName: "Chloe Dubois", 
-        userProfileImage: "/profiles/user8.jpeg", 
-        timePosted: "28/05/2026", 
-        description: "Golden hour styling shoots hitting just right today.", 
-        postImage: "/posts/fashion.jpeg"
-    },
-    {
-        postId: 9, 
-        userId: 109,
-        status: "public",
-        fullName: "Tariq Mahmood", 
-        userProfileImage: "/profiles/user9.jpeg", 
-        timePosted: "27/05/2026", 
-        description: "Deep diving into system architectures tonight. Redux vs Zustand — what is your current production preference?", 
-        postImage: ""
-    },
-    {
-        postId: 10, 
-        userId: 110,
-        status: "public",
-        fullName: "Jessica Taylor", 
-        userProfileImage: "/profiles/user10.jpeg", 
-        timePosted: "26/05/2026", 
-        description: "Weekend meal prep is done. Healthy eating makes such a huge difference for productivity.", 
-        postImage: "/posts/food.jpeg"
-    },
-    {
-        postId: 11, 
-        userId: 111,
-        status: "private",
-        fullName: "Carlos Mendez", 
-        userProfileImage: "/profiles/user11.jpeg", 
-        timePosted: "25/05/2026", 
-        description: "Adopted a new puppy over the weekend! Say hello to Buster 🐾", 
-        postImage: "/posts/dog.jpeg"
-    },
-    {
-        postId: 12, 
-        userId: 112,
-        status: "public",
-        fullName: "Nina Peterson", 
-        userProfileImage: "/profiles/user12.jpeg", 
-        timePosted: "24/05/2026", 
-        description: "A quick throwback to walking around the Tokyo streets last autumn.", 
-        postImage: "/posts/travel.jpeg"
-    },
-    {
-        postId: 13, 
-        userId: 113,
-        status: "public",
-        fullName: "Jordan Malik", 
-        userProfileImage: "/profiles/user13.jpeg", 
-        timePosted: "23/05/2026", 
-        description: "Never underestimate the power of consistent, incremental code revisions.", 
-        postImage: ""
-    },
-    {
-        postId: 14, 
-        userId: 114,
-        status: "private",
-        fullName: "Emma Watson", 
-        userProfileImage: "/profiles/user14.jpeg", 
-        timePosted: "22/05/2026", 
-        description: "Caught an incredible live acoustic set at the park community theater tonight.", 
-        postImage: "/posts/music.jpeg"
-    },
-    {
-        postId: 15, 
-        userId: 115,
-        status: "public",
-        fullName: "Kenji Sato", 
-        userProfileImage: "/profiles/user15.jpeg", 
-        timePosted: "21/05/2026", 
-        description: "Working on an open-source SVG customization kit. Updates dropping soon!", 
-        postImage: ""
-    },
-    {
-        postId: 16, 
-        userId: 116,
-        status: "public",
-        fullName: "Rachel Green", 
-        userProfileImage: "/profiles/user16.jpeg", 
-        timePosted: "20/05/2026", 
-        description: "Fresh canvas setup. Time to get messy with some acrylic paints.", 
-        postImage: "/posts/art.jpeg"
-    },
-    {
-        postId: 17, 
-        userId: 117,
-        status: "private",
-        fullName: "Alex Rivera", 
-        userProfileImage: "/profiles/user17.jpeg", 
-        timePosted: "19/05/2026", 
-        description: "Mechanical keyboards are a slippery slope. Just finished assembling my third custom deck.", 
-        postImage: "/posts/keyboard.jpeg"
-    },
-    {
-        postId: 18, 
-        userId: 118,
-        status: "public",
-        fullName: "Lisa Tanaka", 
-        userProfileImage: "/profiles/user18.jpeg", 
-        timePosted: "18/05/2026", 
-        description: "Great session presenting UI layout best practices to our junior development circle today.", 
-        postImage: ""
-    },
-    {
-        postId: 19, 
-        userId: 119,
-        status: "public",
-        fullName: "Oliver Brooks", 
-        userProfileImage: "/profiles/user19.jpeg", 
-        timePosted: "17/05/2026", 
-        description: "Stargazing conditions are absolutely perfect tonight. Clear skies and zero moon glare.", 
-        postImage: "/posts/stars.jpeg"
-    },
-    {
-        postId: 20, 
-        userId: 120,
-        status: "private",
-        fullName: "Sophia Martinez", 
-        userProfileImage: "/profiles/user20.jpeg", 
-        timePosted: "16/05/2026", 
-        description: "Reading through clean-code architecture guides this evening. Highly educational read.", 
-        postImage: ""
-    }
+  {
+    postId: 1,
+    userId: 101,
+    fullName: "Astra Max",
+    status: "public",
+    location: "Nairobi, Kenya",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-06-04",
+    description: "Setting up my new workspace today 🚀",
+    postImage:
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=60",
+    likes: 120,
+    comments: 14,
+    shares: 5,
+    tags: ["workspace", "coding", "minimal"],
+    postType: "image",
+  },
+
+  {
+    postId: 2,
+    userId: 102,
+    fullName: "Elena Rostova",
+    status: "private",
+    location: "Berlin, Germany",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-06-02",
+    description: "Debugging Next.js layout shifts is finally done.",
+    postImage: "",
+    likes: 45,
+    comments: 6,
+    shares: 1,
+    tags: ["nextjs", "debugging"],
+    postType: "text",
+  },
+
+  {
+    postId: 3,
+    userId: 103,
+    fullName: "Marcus Vance",
+    status: "public",
+    location: "Cape Town, South Africa",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-06-02",
+    description: "Morning hikes hit different 🌄",
+    postImage:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=60",
+    likes: 310,
+    comments: 32,
+    shares: 18,
+    tags: ["nature", "hiking"],
+    postType: "image",
+  },
+
+  {
+    postId: 4,
+    userId: 104,
+    fullName: "Sarah Jenkins",
+    status: "public",
+    location: "London, UK",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-06-01",
+    description: "React 19 forms feel insanely smooth.",
+    postImage: "",
+    likes: 90,
+    comments: 10,
+    shares: 2,
+    tags: ["react", "frontend"],
+    postType: "text",
+  },
+
+  {
+    postId: 5,
+    userId: 105,
+    fullName: "David Chen",
+    status: "private",
+    location: "Tokyo, Japan",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-05-31",
+    description: "Coffee tasting session ☕",
+    postImage:
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=60",
+    likes: 210,
+    comments: 22,
+    shares: 9,
+    tags: ["coffee", "lifestyle"],
+    postType: "image",
+  },
+
+  {
+    postId: 6,
+    userId: 106,
+    fullName: "Amina Yusuf",
+    status: "public",
+    location: "Lagos, Nigeria",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-05-30",
+    description: "Big product launch tomorrow 🚀",
+    postImage:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=60",
+    likes: 540,
+    comments: 61,
+    shares: 25,
+    tags: ["startup", "launch"],
+    postType: "image",
+  },
+
+  {
+    postId: 7,
+    userId: 107,
+    fullName: "Liam O'Connor",
+    status: "public",
+    location: "Dublin, Ireland",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-05-29",
+    description: "Best animation libraries for Next.js?",
+    postImage: "",
+    likes: 77,
+    comments: 19,
+    shares: 3,
+    tags: ["nextjs", "animation"],
+    postType: "text",
+  },
+
+  {
+    postId: 8,
+    userId: 108,
+    fullName: "Chloe Dubois",
+    status: "private",
+    location: "Paris, France",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-05-28",
+    description: "Golden hour shoot 📸",
+    postImage:
+      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1000&q=60",
+    likes: 890,
+    comments: 44,
+    shares: 30,
+    tags: ["photography", "goldenhour"],
+    postType: "image",
+  },
+
+  {
+    postId: 9,
+    userId: 109,
+    fullName: "Tariq Mahmood",
+    status: "public",
+    location: "Dubai, UAE",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-05-27",
+    description: "Redux vs Zustand — thoughts?",
+    postImage: "",
+    likes: 140,
+    comments: 28,
+    shares: 6,
+    tags: ["redux", "zustand"],
+    postType: "text",
+  },
+
+  {
+    postId: 30,
+    userId: 130,
+    fullName: "Sophia Martinez",
+    status: "private",
+    location: "Madrid, Spain",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=60",
+    timePosted: "2026-05-16",
+    description: "Clean architecture reading session 📚",
+    postImage: "",
+    likes: 88,
+    comments: 11,
+    shares: 2,
+    tags: ["architecture", "reading"],
+    postType: "text",
+  },
 ];
