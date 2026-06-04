@@ -22,7 +22,7 @@ type Post struct {
     MediaType string
     Privacy   string
     CreatedAt time.Time
-    UpdatedAt time.Time  // add updated_at to your migration
+    UpdatedAt time.Time  
 }
 
 type PostAllowedUser struct {
@@ -43,7 +43,7 @@ type Comment struct {
 type Notification struct {
     ID          string
     UserID      string
-    ActorID     string  // who triggered the notification
+    ActorID     string  
     Type        string
     ReferenceID string
     IsRead      bool

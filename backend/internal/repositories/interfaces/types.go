@@ -16,3 +16,24 @@ type SessionRepository interface {
 	GetSessionByID(id string) (*models.Session, error)
 	DeleteSession(id string) error
 }
+
+type FollowerRepository interface {
+    // follow requests
+    CreateFollowRequest(req *models.FollowRequest) error
+    GetFollowRequest(senderID, receiverID string) (*models.FollowRequest, error)
+    GetFollowRequestByID(requestID string) (*models.FollowRequest, error)
+    UpdateFollowRequest(requestID, status string) error
+
+    // follow relationships
+    CreateFollower(followerID, followingID string) error
+    DeleteFollower(followerID, followingID string) error
+    IsFollowing(followerID, followingID string) (bool, error)
+
+    // lists
+    GetFollowers(userID string) ([]*models.Follower, error)
+    GetFollowing(userID string) ([]*models.Follower, error)
+}
+
+type NotificationRepository interface {
+    CreateNotification(n *models.Notification) error
+}
