@@ -1,4 +1,4 @@
-import { UserPostData } from "@/types";
+import { FollowUsers, UserPostData } from "@/types";
 
 export const allPostData: UserPostData[] = [
   {
@@ -184,5 +184,107 @@ export const allPostData: UserPostData[] = [
     shares: 2,
     tags: ["architecture", "reading"],
     postType: "text",
+  },
+];
+
+
+export const suggestedFollows: FollowUsers[] = [
+  {
+    userId: 1,
+    fullName: "Astra Max",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=400&q=80",
+    location: "Nairobi, Kenya",
+  },
+  {
+    userId: 2,
+    fullName: "Elena Rostova",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=400&q=80",
+    location: "Berlin, Germany",
+  },
+  {
+    userId: 3,
+    fullName: "Marcus Vance",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    location: "Cape Town, South Africa",
+  },
+  {
+    userId: 4,
+    fullName: "Amina Yusuf",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+    location: "Lagos, Nigeria",
+  },
+  {
+    userId: 5,
+    fullName: "David Chen",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+    location: "Tokyo, Japan",
+  },
+  {
+    userId: 6,
+    fullName: "Chloe Dubois",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=400&q=80",
+    location: "Paris, France",
+  },
+  {
+    userId: 7,
+    fullName: "Tariq Mahmood",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+    location: "Dubai, UAE",
+  },
+  {
+    userId: 8,
+    fullName: "Jessica Taylor",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=400&q=80",
+    location: "New York, USA",
+  },
+  {
+    userId: 9,
+    fullName: "Liam O'Connor",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=400&q=80",
+    location: "Dublin, Ireland",
+  },
+  {
+    userId: 10,
+    fullName: "Sophia Martinez",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    location: "Madrid, Spain",
+  },
+  {
+    userId: 11,
+    fullName: "Oliver Brooks",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    location: "London, UK",
+  },
+  {
+    userId: 12,
+    fullName: "Nina Peterson",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    location: "Toronto, Canada",
+  },
+  {
+    userId: 13,
+    fullName: "Kenji Sato",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+    location: "Osaka, Japan",
+  },
+  {
+    userId: 14,
+    fullName: "Rachel Green",
+    userProfileImage:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    location: "Los Angeles, USA",
   },
 ];
