@@ -1,5 +1,13 @@
 package models
 
+import "time"
+
+const (
+	StatusPending  = "pending"
+	StatusAccepted = "accepted"
+	StatusDeclined = "declined"
+)
+
 type Follower struct {
     FollowerID  string
     FollowingID string
