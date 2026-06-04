@@ -48,7 +48,7 @@ export function AllPostUI() {}
 export function MapAllPost() {
     return allPostData.map((data)=> {
         return (
-            <div className={style.userPostDisplay}>
+            <div  key={data.postId} className={style.userPostDisplay}>
               <UserPostProfile fullName={data.fullName} status={data.status} />
             </div>
         )
