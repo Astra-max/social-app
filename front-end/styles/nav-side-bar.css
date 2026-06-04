@@ -27,6 +27,7 @@
 .display-home-pg {
     display: flex;
     height: 100vh;
+    overflow: hidden;
     gap: 1.5rem;
 }
 
