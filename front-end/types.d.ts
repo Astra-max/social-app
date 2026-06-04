@@ -34,3 +34,10 @@ export interface UserProfile {
 }
 
 export type UserPostData = PostData & UserProfile
+
+export interface FollowUsers {
+    userId: number;
+    userProfileImage: string;
+    fullName: string;
+    location: string;
+}
