@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"social-network/backend/internal/models"
 	"social-network/backend/internal/services"
-	pkgMiddleware "social-network/backend/pkg/middleware"
+	"social-network/backend/internal/middleware"
 	"strings"
 )
 
@@ -157,7 +157,7 @@ func (h *AuthHandler) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := r.Context().Value(pkgMiddleware.UserIDKey).(string)
+	userID := r.Context().Value(middleware.UserIDKey).(string)
 
 	user, err := h.userService.GetProfile(userID, userID)
 	if err != nil {
@@ -186,7 +186,7 @@ func (h *AuthHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get viewer id from session
-	viewerID := r.Context().Value(pkgMiddleware.UserIDKey).(string)
+	viewerID := r.Context().Value(middleware.UserIDKey).(string)
 
 	// get profile id from url e.g. /api/profile/123
 	profileID := r.PathValue("id")
@@ -225,7 +225,7 @@ func (h *AuthHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := r.Context().Value(pkgMiddleware.UserIDKey).(string)
+	userID := r.Context().Value(middleware.UserIDKey).(string)
 
 	var req models.UpdateProfileRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -259,7 +259,7 @@ func (h *AuthHandler) UpdatePrivacy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := r.Context().Value(pkgMiddleware.UserIDKey).(string)
+	userID := r.Context().Value(middleware.UserIDKey).(string)
 
 	var req models.PrivacyRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -282,7 +282,7 @@ func (h *AuthHandler) UploadAvatar(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := r.Context().Value(pkgMiddleware.UserIDKey).(string)
+	userID := r.Context().Value(middleware.UserIDKey).(string)
 
 	// limit upload size to 5MB
 	r.ParseMultipartForm(5 << 20)

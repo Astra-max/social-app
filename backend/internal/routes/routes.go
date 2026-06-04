@@ -3,12 +3,12 @@ package routes
 import (
 	"net/http"
 	"social-network/backend/internal/handlers"
-	"social-network/backend/internal/services" // Fixed import
-	pkgMiddleware "social-network/backend/pkg/middleware"
+	"social-network/backend/internal/services" 
+	"social-network/backend/internal/middleware"
 )
 
 func Register(mux *http.ServeMux, authHandler *handlers.AuthHandler, sessionService *services.SessionService) {
-	authWithSession := pkgMiddleware.AuthMiddleware(sessionService)
+	authWithSession := middleware.AuthMiddleware(sessionService)
 
 	// Health check
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
