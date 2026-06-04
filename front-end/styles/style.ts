@@ -1,7 +1,7 @@
 export const navSideBar = {
     backgroundColor: "var(--fade-background)",
-    flex: "0 0 20%",
-    width: "32%",
+    flex: "0 0 23%",
+    width: "37%",
     height: "100vh",
     borderRadius: "0.4rem",
 }
