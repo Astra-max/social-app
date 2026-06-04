@@ -13,16 +13,16 @@ export function PostInteractions({ likes, comments }: Props) {
         <div className={style.displayInteractions}>
             <div className={style.likeCommentCont}>
                 <div className={style.likeComment}>
-                    <Heart />
-                    {likes}
+                    <Heart size={24} />
+                    <span>{likes}</span>
                 </div>
                 <div className={style.likeComment}>
-                    <MessageCircleReply />
-                    {comments}
+                    <MessageCircleReply size={24} />
+                     <span>{comments}</span>
                 </div>
             </div>
             <span>
-                <BookMarkedIcon />
+                <BookMarkedIcon size={24} />
             </span>
         </div>
     )
