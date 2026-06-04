@@ -14,7 +14,7 @@ export function RightSideBarUI() {
 export function Follow() {
   return (
     <div className={style.userSFollowMain}>
-        <p className={style.people}>People you know</p>
+        <p className={style.people}>People you may know</p>
       {suggestedFollows.map((data) => (
         <FollowUserUI key={data.userId} data={data} />
       ))}
