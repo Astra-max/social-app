@@ -1,11 +1,10 @@
-.userImage {
+.imageCont {
+    position: relative;
+    padding: 1.6rem;
     border-radius: 50%;
-    width: 70%;
-    height: 3.5rem;
+    overflow: hidden;
 }
 
-.imageCont {
-    width: 100%;
-    height: inherit;
-    border-radius: 50%;
+.userImage {
+    object-fit: cover;
 }
