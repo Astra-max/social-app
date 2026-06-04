@@ -28,7 +28,6 @@
     display: flex;
     height: 100vh;
     gap: 1.5rem;
-    width: 100%;
 }
 
 .display-nav-h-icons {
@@ -62,7 +61,6 @@
 
 .search-bar {
     padding: 0.6rem 1rem;
-    border: 0.1rem solid var(--primary-theme);
     border-radius: 0.5rem;
     background-color: #3b3b3b; 
     width: 70%;
