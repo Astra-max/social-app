@@ -15,7 +15,8 @@ go run ./cmd/api
 ```bash
 curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"email":"test@test.com","password":"secret123","first_name":"John","last_name":"Doe","date_of_birth":"1995-01-01"}'
+  -d '{"email":"test@test.com","password":"secret123","first_name":"John","last_name":"Doe","date_of_birth":"1995-01-01"}' \
+  -c cookies.txt
 ```
 **Expected:** `201` with user object (no password field)
 **Result:** ✅ Pass
@@ -26,7 +27,8 @@ curl -X POST http://localhost:8080/api/auth/register \
 ```bash
 curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"test@test.com","password":"secret123"}'
+  -d '{"email":"test@test.com","password":"secret123"}' \
+  -c cookies.txt
 ```
 **Expected:** `200` with user object
 **Result:** ✅ Pass
@@ -74,23 +76,54 @@ curl -X POST http://localhost:8080/api/auth/logout \
 
 ## Profile Endpoints
 
-### Get Own Profile
+### Current User (me)
 ```bash
-curl http://localhost:8080/api/profile \
+curl http://localhost:8080/api/auth/me \
   -b cookies.txt
 ```
-**Expected:** `200` with full user profile
-**Result:** 🔲 Not tested
+**Expected:** `200` with logged in user object (no password)
+**Result:** ✅ Pass
 
 ---
 
-### Get Another User's Profile
+### Get Profile by ID
 ```bash
 curl http://localhost:8080/api/profile/{user_id} \
   -b cookies.txt
 ```
-**Expected:** `200` if public or follower, `403` if private and not following
-**Result:** 🔲 Not tested
+**Expected:** `200` with user profile
+**Result:** ✅ Pass
+
+---
+
+### Get Profile by ID - Private Profile (not following)
+```bash
+# register second user
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test2@test.com","password":"secret123","first_name":"Jane","last_name":"Doe","date_of_birth":"1995-01-01"}' \
+  -c cookies2.txt
+
+# try to view first user's private profile as second user
+curl http://localhost:8080/api/profile/{user1_id} \
+  -b cookies2.txt
+```
+**Expected:** `403` with `this profile is private`
+**Result:** ✅ Pass
+
+---
+
+### Get Profile by ID - Private Profile (following)
+```bash
+# manually insert follow into DB
+sqlite3 backend/app.db "INSERT INTO followers (follower_id, following_id) VALUES ('{viewer_id}', '{profile_id}');"
+
+# try to view private profile as follower
+curl http://localhost:8080/api/profile/{profile_id} \
+  -b cookies2.txt
+```
+**Expected:** `200` with user profile
+**Result:** ✅ Pass
 
 ---
 
@@ -102,19 +135,36 @@ curl -X PUT http://localhost:8080/api/profile \
   -d '{"nickname":"johnny","about_me":"Hello world"}'
 ```
 **Expected:** `200` with updated user object
-**Result:** 🔲 Not tested
+**Result:** ✅ Pass
+
+---
+
+### Update Profile - Single Field
+```bash
+curl -X PUT http://localhost:8080/api/profile \
+  -H "Content-Type: application/json" \
+  -b cookies.txt \
+  -d '{"nickname":"johnny"}'
+```
+**Expected:** `200` — only nickname changes, all other fields unchanged
+**Result:** ✅ Pass
 
 ---
 
 ### Toggle Profile Privacy
 ```bash
+# set to private
 curl -X PUT http://localhost:8080/api/profile/privacy \
   -H "Content-Type: application/json" \
   -b cookies.txt \
   -d '{"is_public": false}'
+
+# verify with me endpoint
+curl http://localhost:8080/api/auth/me \
+  -b cookies.txt
 ```
-**Expected:** `200` with updated privacy setting
-**Result:** 🔲 Not tested
+**Expected:** `200` with `is_public: false`
+**Result:** ✅ Pass
 
 ---
 
@@ -122,20 +172,10 @@ curl -X PUT http://localhost:8080/api/profile/privacy \
 ```bash
 curl -X POST http://localhost:8080/api/profile/avatar \
   -b cookies.txt \
-  -F "avatar=@/path/to/image.jpg"
+  -F "avatar=@/home/amonoff/Downloads/saka.jpeg"
 ```
-**Expected:** `200` with avatar path
-**Result:** 🔲 Not tested
-
----
-
-### Current User
-```bash
-curl http://localhost:8080/api/auth/me \
-  -b cookies.txt
-```
-**Expected:** `200` with logged in user object
-**Result:** 🔲 Not tested
+**Expected:** `200` with `{"avatar":"uploads/avatars/{user_id}.jpeg"}`
+**Result:** ✅ Pass
 
 ---
 
