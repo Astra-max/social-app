@@ -14,7 +14,7 @@ export default function NavSideBar() {
     const path = usePathname()
     const { toggle } = useSelector((state: RootState) => state.toggleSideBar)
 
-    const newStyle = {...navSideBar, width: "2%", overflow: "hidden"}
+    const newStyle = {...navSideBar, flex: "0 0 60px", overflow: "hidden"}
 
     return (
         <div style={toggle ? newStyle : navSideBar}>
