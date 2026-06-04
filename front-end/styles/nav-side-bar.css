@@ -1,0 +1,88 @@
+.ns-cont {
+    background-color: var(--fade-background);
+    max-width: 30%;
+    width: 16%;
+    height: 100vh;
+    border-radius: 0.4rem;
+}
+
+.ns-main-cont {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 2rem 1rem;
+}
+
+.ns-side-elements {
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    color: var(--primary-theme);
+}
+
+.ns-side-elements:hover {
+    color: var(--primary-theme);
+}
+
+.display-home-pg {
+    display: flex;
+    height: 100vh;
+    gap: 1.5rem;
+}
+
+.display-nav-h-icons {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.display-home-nav {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 4rem;
+    width: inherit;
+    height: inherit;
+}
+
+.home-d-n-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--fade-background);
+    width: 100%;
+    padding: 1.5rem 1rem;
+}
+
+.style-search-fm {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-bar {
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #3b3b3b; 
+    width: 70%;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    top: 22%;
+    left: 68%;
+    opacity: 0.7;
+    padding-bottom: 3rem;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.display-middle-section-h {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    gap: 1rem;
+}
