@@ -1,4 +1,24 @@
-import { FollowUsers, UserPostData } from "@/types";
+import { FollowUsers, UserPersonalData, UserPostData, UserProfileData } from "@/types";
+
+
+export const userProfile: UserPersonalData = {
+  userId: 101,
+  firstName: "Maxwel",
+  secondName: "Odongo",
+  nickName: "Astra Max",
+  dateOfBirth: new Date("2000-08-15"),
+  profileImage:
+    "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=800&q=60",
+  accountStatus: "public",
+  aboutMe:
+    "Full-stack developer focused on Go, React, Next.js, and scalable backend systems.",
+  posts: 12,
+  followers: 1540,
+  following: 320,
+
+  myPosts: [],
+  saved: [],
+};
 
 export const allPostData: UserPostData[] = [
   {
@@ -10,7 +30,7 @@ export const allPostData: UserPostData[] = [
     userProfileImage:
       "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=800&q=60",
     timePosted: "2026-06-04",
-    description: "Setting up my new workspace today 🚀",
+    description: "Setting up my new workspace today",
     postImage:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=60",
     likes: 120,
