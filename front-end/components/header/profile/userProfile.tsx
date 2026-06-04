@@ -5,7 +5,7 @@ export default function UserProfileImage() {
     return (
         <div>
             <div className={style.imageCont}>
-                <Image className={style.userImage} src={"/maodongo.jpeg"} width={80} height={80} alt="user profile image" loading="eager" />
+                <Image className={style.userImage} src={"/maodongo.jpeg"} fill priority alt="user profile image" loading="eager" />
             </div>
         </div>
     )
