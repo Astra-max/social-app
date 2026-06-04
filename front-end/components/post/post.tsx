@@ -3,12 +3,13 @@
 import UserProfileImage from "../header/profile/userProfile";
 import style from "@/styles/post.module.css";
 import { Button } from "../ui/button";
-import { ButtonData, PostData } from "@/types";
+import { ButtonData } from "@/types";
 import { createPostBtn } from "@/styles/style";
-import { Clapperboard, Image as LucideImage } from "lucide-react";
+import { Clapperboard, Eye, LockIcon, Image as LucideImage } from "lucide-react";
 import { allPostData } from "@/dummy";
 import Image from "next/image";
 import { CSSProperties } from "react";
+import { PostInteractions } from "./interactions";
 
 const data: ButtonData = {
   text: "create post",
@@ -63,10 +64,13 @@ export function MapAllPost() {
           fullName={data.fullName}
           status={data.status}
           datePosted={data.timePosted}
+          privacy={data.status}
         />
         <UserPostContent
           description={data.description}
           postImage={data.postImage}
+          likes={data.likes}
+          comments={data.comments}
         />
       </div>
     );
@@ -78,6 +82,7 @@ interface Props {
   fullName: string;
   status: string;
   datePosted: string;
+  privacy: string;
 }
 
 export function UserPostProfile({
@@ -85,17 +90,23 @@ export function UserPostProfile({
   fullName,
   status,
   datePosted,
+  privacy,
 }: Props) {
   return (
     <div className={style.postUserProfile}>
       <div className={style.userImageName}>
+
         <UserProfileImage url={userImage} />
-        <span>
+
+        <span className={style.userPostProfile}>
           <p>{fullName}</p>
           <p>posted at {datePosted}</p>
         </span>
       </div>
-      <div>{status}</div>
+      <div className={style.userPrivacy}>
+        {privacy === "public" ? <Eye /> : <LockIcon />}
+        {status}
+      </div>
     </div>
   );
 }
@@ -103,9 +114,11 @@ export function UserPostProfile({
 interface ContentInterface {
   description: string;
   postImage?: string;
+  likes: number;
+  comments: number;
 }
 
-export function UserPostContent({ description, postImage }: ContentInterface) {
+export function UserPostContent({ description, postImage, likes, comments }: ContentInterface) {
   const imageStyle: CSSProperties = {
     objectFit: "cover",
     borderRadius: "0.5rem",
@@ -117,7 +130,7 @@ export function UserPostContent({ description, postImage }: ContentInterface) {
         {postImage ? (
           <>
             <div>
-              <p>{description}</p>
+              <p className={style.postDesscription} >{description}</p>
             </div>
 
             <div className={style.postsImageCont}>
@@ -135,14 +148,18 @@ export function UserPostContent({ description, postImage }: ContentInterface) {
         )}
 
         <div>
-          <p>dummy interactions</p>
+          <PostInteractions comments={comments} likes={likes} />
         </div>
       </div>
     </div>
   );
 }
 
-export function PostDescriptionUI({ description }: ContentInterface) {
+interface DescProps {
+  description: string;
+}
+
+export function PostDescriptionUI({ description } : DescProps) {
   return (
     <div>
       <p className={style.shoutDescription}>{description}</p>
