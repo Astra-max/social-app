@@ -8,6 +8,7 @@ import { createPostBtn } from "@/styles/style";
 import { Clapperboard, Image as LucideImage } from "lucide-react";
 import { allPostData } from "@/dummy";
 import Image from "next/image";
+import { CSSProperties } from "react";
 
 const data: ButtonData = {
   text: "create post",
@@ -40,12 +41,18 @@ export default function UserPostUI() {
           </div>
         </div>
       </div>
-      <MapAllPost />
+      <AllPostUI />
     </div>
   );
 }
 
-export function AllPostUI() {}
+export function AllPostUI() {
+  return (
+    <div className={style.AllPostLayout}>
+      <MapAllPost />
+    </div>
+  );
+}
 
 export function MapAllPost() {
   return allPostData.map((data) => {
@@ -85,7 +92,7 @@ export function UserPostProfile({
         <UserProfileImage url={userImage} />
         <span>
           <p>{fullName}</p>
-          <p>{datePosted}</p>
+          <p>posted at {datePosted}</p>
         </span>
       </div>
       <div>{status}</div>
@@ -99,24 +106,46 @@ interface ContentInterface {
 }
 
 export function UserPostContent({ description, postImage }: ContentInterface) {
+  const imageStyle: CSSProperties = {
+    objectFit: "cover",
+    borderRadius: "0.5rem",
+  };
+
+  return (
+    <div className={style.postContMain}>
+      <div className={style.postContMain}>
+        {postImage ? (
+          <>
+            <div>
+              <p>{description}</p>
+            </div>
+
+            <div className={style.postsImageCont}>
+              <Image
+                src={postImage}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={imageStyle}
+                alt="post image"
+              />
+            </div>
+          </>
+        ) : (
+          <PostDescriptionUI description={description} />
+        )}
+
+        <div>
+          <p>dummy interactions</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function PostDescriptionUI({ description }: ContentInterface) {
   return (
     <div>
-      <div>
-        <p>{description}</p>
-      </div>
-      <div>
-        {postImage && postImage.trim() !== "" && (
-          <Image
-            src={postImage}
-            width={80}
-            height={80}
-            alt={`${postImage} image`}
-          />
-        )}
-      </div>
-      <div>
-        <p>dummy interactions</p>
-      </div>
+      <p className={style.shoutDescription}>{description}</p>
     </div>
   );
 }
