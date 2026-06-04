@@ -1,4 +1,4 @@
-import { Home, Compass, Bell, MessageSquare, Users, Calendar, Settings, LogOut } from 'lucide-react';
+import { Home, Compass, Bell, MessageSquare, Users, Calendar, Settings, LogOut, User } from 'lucide-react';
 
 
 export const sidebarNav = [
@@ -9,5 +9,6 @@ export const sidebarNav = [
     {id: 5,icon: Users, text: "Groups"},
     {id: 6,icon: Calendar, text: "Events"},
     {id: 7,icon: Settings, text: "Settings"},
+    {id: 8, icon: User, text: "profile"},
     {id: 9,icon: LogOut, text: "Logout"},
 ]
