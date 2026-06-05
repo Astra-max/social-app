@@ -17,11 +17,6 @@ export function SearchUI() {
     error: null,
   };
 
-  const buttonData: ButtonData = {
-    text: "search",
-    type: "submit",
-  };
-
   const [state, formAction] = useActionState<FormState, FormData>(
     sendData,
     initialState,
