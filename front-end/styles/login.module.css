@@ -11,13 +11,17 @@
     width: 100%;
     max-width: 31%;
     height: 100vh;
-    max-height: 50vh;
+    max-height: 55vh;
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
     padding: 2rem;
     border-radius: 0.8rem;
     background-color: rgb(24, 24, 24);
+}
+
+.welcomeCont {
+    padding-bottom: 2rem;
 }
 
 .welcomeNote {
@@ -50,4 +54,25 @@
 
 .iconPosition {
     position: relative;
+}
+
+.orCont {
+    width: 100%;
+    height: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(75, 74, 74);
+    margin: 1.5rem 0rem;
+}
+
+.orCont span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    background-color: rgb(24, 24, 24);
+    padding: 0rem 2rem;
+    color: #fff;
+    font-weight: bold;
 }

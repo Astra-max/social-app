@@ -32,7 +32,7 @@ export default function LogIn() {
   return (
     <form className={style.loginMain} action="">
       <div className={style.loginCont}>
-        <div>
+        <div className={style.welcomeCont}>
           <p className={style.welcomeNote}>Welcome to social network app</p>
           <p>Sign in to continue</p>
         </div>
@@ -70,11 +70,11 @@ export default function LogIn() {
             />
           </div>
         </div>
-        
+
         <div>
           <Button data={btnStyle} />
         </div>
-        <div>
+        <div className={style.orCont}>
           <span>or</span>
         </div>
         <div>
