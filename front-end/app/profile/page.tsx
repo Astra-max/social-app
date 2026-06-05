@@ -1,3 +1,10 @@
+import UserPersonalData from "@/components/header/profile/profile";
+import DefaultLayout from "@/components/layouts/defaultLayout";
+
 export default function Profile() {
-    return <div>User profile</div>
+    return (
+        <DefaultLayout>
+            <UserPersonalData />
+        </DefaultLayout>
+    )
 }
