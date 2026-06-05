@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { ButtonData } from "@/types";
 import { createPostBtn } from "@/styles/style";
 import { Clapperboard, Eye, LockIcon, Image as LucideImage } from "lucide-react";
-import { allPostData } from "@/dummy";
+import { allPostData } from "@/libs/dummy";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import { PostInteractions } from "./interactions";

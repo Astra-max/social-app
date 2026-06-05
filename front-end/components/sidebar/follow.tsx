@@ -1,6 +1,6 @@
 "use client";
 
-import { suggestedFollows } from "@/dummy";
+import { suggestedFollows } from "@/libs/dummy";
 import { ButtonData, FollowUsers } from "@/types";
 import { Button } from "../ui/button";
 import Image from "next/image";
