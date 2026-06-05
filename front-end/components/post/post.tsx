@@ -29,7 +29,9 @@ export default function UserPostUI() {
             placeholder="what's on your mind"
             name="postData"
           />
-          <Button data={data} />
+          <div>
+            <Button data={data} />
+          </div>
         </div>
         <div className={style.iconPostDisplay}>
           <div className={style.iconFlex}>
