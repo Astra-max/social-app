@@ -30,7 +30,7 @@ export default function NavSideBar() {
         {sidebarNav.map((v) => {
           return (
             <Link
-              href={`/${v.text}`}
+              href={`/view/${v.text}`}
               key={v.id}
               style={
                 v.text === "Home" && (path === "/" || path === "/Home")
