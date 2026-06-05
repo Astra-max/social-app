@@ -44,7 +44,9 @@ export function FollowUserUI({ data }: { data: FollowUsers }) {
           <p>{data.location}</p>
         </div>
       </div>
-      <Button data={buttonData} />
+      <div>
+        <Button data={buttonData} />
+      </div>
     </div>
   );
 }
