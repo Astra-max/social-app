@@ -3,7 +3,7 @@ package middleware
 import (
 	"context"
 	"net/http"
-	"social-network/backend/internal/services" 
+	"social-network/backend/internal/services"
 )
 
 type contextKey string
@@ -29,4 +29,11 @@ func AuthMiddleware(sessionService *services.SessionService) func(http.Handler) 
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
+}
+func GetUserID(r *http.Request) string {
+	userID, ok := r.Context().Value(UserIDKey).(string)
+	if !ok {
+		return ""
+	}
+	return userID
 }
