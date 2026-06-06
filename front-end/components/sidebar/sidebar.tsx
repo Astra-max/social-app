@@ -33,9 +33,9 @@ export default function NavSideBar() {
               href={`/view/${v.text}`}
               key={v.id}
               style={
-                v.text === "Home" && (path === "/" || path === "/Home")
+                v.text === "Home" && (path === "/" || path === "/view/Home")
                   ? activeRoute
-                  : path === "/" + v.text
+                  : path === "/view/" + v.text
                     ? activeRoute
                     : nonActive
               }
