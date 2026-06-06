@@ -183,3 +183,55 @@ func (h *FollowerHandler) Unfollow(w http.ResponseWriter, r *http.Request) {
 		"message": "unfollowed successfully",
 	})
 }
+func (h *FollowerHandler) GetFollowers(w http.ResponseWriter, r *http.Request) {
+	// Step 1 — only allow GET
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Step 2 — get logged in user ID from session
+	userID := middleware.GetUserID(r)
+	if userID == "" {
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	// Step 3 — call the service
+	followers, err := h.followerService.GetFollowers(userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Step 4 — send back the list as JSON
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(followers)
+}
+func (h *FollowerHandler) GetFollowing(w http.ResponseWriter, r *http.Request) {
+	// Step 1 — only allow GET
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Step 2 — get logged in user ID from session
+	userID := middleware.GetUserID(r)
+	if userID == "" {
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	// Step 3 — call the service
+	following, err := h.followerService.GetFollowing(userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Step 4 — send back the list as JSON
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(following)
+}
