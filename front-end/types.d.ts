@@ -1,3 +1,6 @@
+import { LucideProps } from "lucide-react";
+import { IconType } from "react-icons";
+
 export interface FormState {
     success: boolean;
     error: string | null;
@@ -11,6 +14,7 @@ export interface ButtonData {
     className?: string;
     style?: {};
     type?: "button" | "submit" | "reset";
+    icons?: IconType;
 }
 
 export interface PostData {
