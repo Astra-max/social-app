@@ -6,6 +6,7 @@ import style from "@/styles/login.module.css";
 import { insertIcon } from "@/styles/style";
 import { Lock, Mail, Unlock } from "lucide-react";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 const btnStyle: ButtonData = {
   text: "login now!!!",
@@ -16,10 +17,15 @@ const btnStyle: ButtonData = {
 const authProviderLoginStyle: ButtonData = {
   text: "Login with Google",
   style: {
-    background: "transparent",
+    backgroundColor: "rgb(75, 74, 74))",
     border: "0.1rem solid var(--primary-theme)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent:"center",
+    gap: "2rem"
   },
   type: "submit",
+  icons: FcGoogle
 };
 
 export default function LogIn() {
