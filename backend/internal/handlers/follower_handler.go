@@ -145,3 +145,41 @@ func (h *FollowerHandler) DeclineFollowRequest(w http.ResponseWriter, r *http.Re
 	})
 
 }
+
+func (h *FollowerHandler) Unfollow(w http.ResponseWriter, r *http.Request) {
+
+	//Step 1 — check method is DELETE
+
+	if r.Method != http.MethodDelete {
+
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	//Step 2 — get logged in user from session
+	followerID := middleware.GetUserID((r))
+	if followerID == "" {
+
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+	//Step 3 — get user_id from URL
+	//The person being unfollowed comes from the URL. They are the followingID.
+
+	followingID := r.PathValue(("user_id"))
+
+	if followingID == "" {
+
+		http.Error(w, "user_id is required", http.StatusBadRequest)
+		return
+	}
+	// Step 4 — call the service
+	if err := h.followerService.Unfollow(followerID, followingID); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "unfollowed successfully",
+	})
+}
