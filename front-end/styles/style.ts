@@ -1,7 +1,9 @@
+import { CSSProperties } from "react";
+
 export const navSideBar = {
     backgroundColor: "var(--fade-background)",
-    flex: "0 0 20%",
-    width: "32%",
+    flex: "0 0 23%",
+    width: "23%",
     height: "100vh",
     borderRadius: "0.4rem",
 }
@@ -39,3 +41,10 @@ export const btnFollowStyle = {
   padding: "0.4rem 0.7rem",
   borderRadius: "0.5rem",
 };
+
+export const insertIcon: CSSProperties = {
+    position: "absolute",
+    top: "50%",
+    left: "1rem",
+    transform: "translateY(-50%)",
+}

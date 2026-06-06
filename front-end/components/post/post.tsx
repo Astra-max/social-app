@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { ButtonData } from "@/types";
 import { createPostBtn } from "@/styles/style";
 import { Clapperboard, Eye, LockIcon, Image as LucideImage } from "lucide-react";
-import { allPostData } from "@/dummy";
+import { allPostData } from "@/libs/dummy";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import { PostInteractions } from "./interactions";
@@ -29,7 +29,9 @@ export default function UserPostUI() {
             placeholder="what's on your mind"
             name="postData"
           />
-          <Button data={data} />
+          <div>
+            <Button data={data} />
+          </div>
         </div>
         <div className={style.iconPostDisplay}>
           <div className={style.iconFlex}>

@@ -1,3 +1,6 @@
+import { LucideProps } from "lucide-react";
+import { IconType } from "react-icons";
+
 export interface FormState {
     success: boolean;
     error: string | null;
@@ -11,6 +14,7 @@ export interface ButtonData {
     className?: string;
     style?: {};
     type?: "button" | "submit" | "reset";
+    icons?: IconType;
 }
 
 export interface PostData {
@@ -26,6 +30,13 @@ export interface PostData {
     postType: string;
 }
 
+export interface FollowUsers {
+    userId: number;
+    userProfileImage: string;
+    fullName: string;
+    location: string;
+}
+
 export interface UserProfile {
     userId: number;
     fullName: string;
@@ -33,11 +44,25 @@ export interface UserProfile {
     userProfileImage: string;
 }
 
-export type UserPostData = PostData & UserProfile
-
-export interface FollowUsers {
-    userId: number;
-    userProfileImage: string;
-    fullName: string;
-    location: string;
+export interface UserActivity {
+    posts: number;
+    followers: number;
+    following: number;
+    myPosts: UserPostData[];
+    saved: UserPostData[];
 }
+
+
+export interface UserProfileData {
+    userId: number;
+    firstName: string;
+    secondName: string;
+    nickName: string;
+    dateOfBirth: Date;
+    profileImage: string;
+    accountStatus: "public" | "private";
+    aboutMe: string;
+}
+
+export type UserPersonalData = UserProfileData & UserActivity
+export type UserPostData = PostData & UserProfile

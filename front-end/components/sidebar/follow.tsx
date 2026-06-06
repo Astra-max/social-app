@@ -1,6 +1,6 @@
 "use client";
 
-import { suggestedFollows } from "@/dummy";
+import { suggestedFollows } from "@/libs/dummy";
 import { ButtonData, FollowUsers } from "@/types";
 import { Button } from "../ui/button";
 import Image from "next/image";
@@ -44,7 +44,9 @@ export function FollowUserUI({ data }: { data: FollowUsers }) {
           <p>{data.location}</p>
         </div>
       </div>
-      <Button data={buttonData} />
+      <div>
+        <Button data={buttonData} />
+      </div>
     </div>
   );
 }
