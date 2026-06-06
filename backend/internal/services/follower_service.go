@@ -125,3 +125,41 @@ func (s *FollowerService) AcceptFollowRequest(requestID, receiverID string) erro
 
 	return nil
 }
+func (s *FollowerService) DeclineFollowRequest(requestID, receiverID string) error {
+	// Rule 1 — fetch the request, does it exist?
+	req, err := s.followerRepo.GetFollowRequestByID(requestID)
+	if err != nil {
+		return errors.New("follow request not found")
+	}
+
+	// Rule 2 — is the status still pending?
+	if req.Status != models.StatusPending {
+		return errors.New("follow request is no longer pending")
+	}
+
+	// Rule 3 — is the person declining it the actual receiver?
+	if req.ReceiverID != receiverID {
+		return errors.New("unauthorized to accept this request")
+	}
+
+	// Action 1 — update status to declined
+	if err := s.followerRepo.UpdateFollowRequest(requestID, models.StatusDeclined); err != nil {
+		return errors.New("could not update follow request status")
+	}
+
+	// Action 2— create notification for sender
+	notification := &models.Notification{
+		ID:          uuid.New().String(),
+		UserID:      req.SenderID,
+		ActorID:     receiverID,
+		Type:        "follow_declined",
+		ReferenceID: req.ID,
+		IsRead:      false,
+		CreatedAt:   time.Now(),
+	}
+	if err := s.notificationRepo.CreateNotification(notification); err != nil {
+		return errors.New("could not create notification")
+	}
+
+	return nil
+}
