@@ -163,3 +163,21 @@ func (s *FollowerService) DeclineFollowRequest(requestID, receiverID string) err
 
 	return nil
 }
+
+func (s *FollowerService) Unfollow(followerID, followingID string) error {
+	// Rule 1 — is the sender actually following the receiver?
+	already, err := s.followerRepo.IsFollowing(followerID, followingID)
+	if err != nil {
+		return errors.New("could not check follow status")
+	}
+	if !already {
+		return errors.New("you are not following this user")
+	}
+
+	// Action 1 — delete the follower relationship
+	if err := s.followerRepo.DeleteFollower(followerID, followingID); err != nil {
+		return errors.New("could not unfollow user")
+	}
+
+	return nil
+}
