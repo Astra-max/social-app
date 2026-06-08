@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import UserPostUI from "../post/post";
+import UserPostUI from "../allPosts/allPosts";
 import { Follow } from "../sidebar/follow";
 import NavSideBar from "../sidebar/sidebar";
 import HomeProfileUI from "./header";
