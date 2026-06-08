@@ -1,0 +1,38 @@
+.followMainCont {
+    width: 60%;
+    overflow-y: scroll;
+    height: 100vh;
+    background-color:  rgb(20, 20, 20);
+    padding: 0rem 2rem;
+}
+
+.peopleCont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--fade-background);
+    padding: 2rem 2rem;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.FollowerText {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.titleFollowers {
+    padding: 2.2rem 0rem;
+}
+
+.imageNameLoc {
+    width: 70%;
+    display: flex;
+    gap: 1rem;
+}
+
+.mappedFollowers {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
