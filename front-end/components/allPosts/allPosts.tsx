@@ -1,7 +1,7 @@
 "use client";
 
 import UserProfileImage from "../header/profile/userProfile";
-import style from "@/styles/post.module.css";
+import style from "@/styles/all-post.module.css";
 import { Button } from "../ui/button";
 import { ButtonData } from "@/types";
 import { createPostBtn } from "@/styles/style";
@@ -102,7 +102,7 @@ export function UserPostProfile({
 
         <span className={style.userPostProfile}>
           <p>{fullName}</p>
-          <p>posted at {datePosted}</p>
+          <p>posted on {datePosted}</p>
         </span>
       </div>
       <div className={style.userPrivacy}>
@@ -157,11 +157,11 @@ export function UserPostContent({ description, postImage, likes, comments }: Con
   );
 }
 
-interface DescProps {
+interface DescriptionProps {
   description: string;
 }
 
-export function PostDescriptionUI({ description } : DescProps) {
+export function PostDescriptionUI({ description } : DescriptionProps) {
   return (
     <div>
       <p className={style.shoutDescription}>{description}</p>
