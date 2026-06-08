@@ -7,6 +7,7 @@ import loginStyle from "@/styles/login.module.css";
 import { useState } from "react";
 import { Camera } from "lucide-react";
 
+
 const btnStyle: ButtonData = {
   text: "create account",
   style: { backgroundColor: "var(--primary-theme)", marginTop: "1rem" },
