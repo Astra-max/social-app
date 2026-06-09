@@ -55,8 +55,9 @@
     padding: 1.5rem 1rem;
 }
 
+
 .style-search-fm {
-    width: 70%;
+    width: 100%;
     display: flex;
     align-items: center;
     position: relative;
