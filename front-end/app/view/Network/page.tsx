@@ -6,6 +6,7 @@ import { suggestedFollows } from "@/libs/dummy";
 import { Button } from "@/components/ui/button";
 import { ButtonData, FollowUsers } from "@/types";
 import style from "@/styles/followers.module.css";
+import { useState } from "react";
 
 export default function FollowersUI() {
   return (
@@ -16,6 +17,8 @@ export default function FollowersUI() {
 }
 
 export function Followers() {
+  const [activeNav, setActiveNavigation] = useState<string>("Followers")
+
   const pastAthousand: string =
     suggestedFollows.length >= 1000
       ? "K"
@@ -23,14 +26,12 @@ export function Followers() {
         ? "M"
         : "";
 
+  const HandleRouteChange = () => setActiveNavigation("");
+
   return (
     <div className={style.followMainCont}>
       <div className={style.titleFollowers}>
-        <p className={style.FollowerText}>Followers</p>
-        <p>
-          <span style={{color: "var(--primary-theme)", fontSize: "1.4rem", fontWeight: "bold"}}>{suggestedFollows.length}</span>
-          {pastAthousand} followers
-        </p>
+        <ActiveRoutes count={suggestedFollows.length} />
       </div>
       <div></div>
       <div className={style.mappedFollowers}>
@@ -63,4 +64,33 @@ export function People({ data }: { data: FollowUsers }) {
       </div>
     </div>
   );
+}
+
+export function ActiveRoutes({ count }: {count: number}) {
+  const [active, setActive] = useState("Followers")
+
+  const routes: {id: number, route: string}[] = [
+    {id: 1, route: "Friends"},
+    {id: 2, route: "Followers"},
+    {id: 3, route: "Following"},
+  ]
+
+  function HandleActiveRoute(event: React.MouseEvent<HTMLDivElement>) {
+    setActive(event.currentTarget.textContent)
+  }
+  return (
+    <div>
+      <p className={style.FollowerText} >{active}</p>
+      <p>{count}</p>
+      <div className={style.displayNetwork}>
+      {routes.map((data) => {
+        return (
+          <div className={
+            active === data.route ? style.activeNetwork : ""
+          } key={data.id} onClick={HandleActiveRoute}>{data.route}</div>
+        )
+      })}
+    </div>
+    </div>
+  )
 }
