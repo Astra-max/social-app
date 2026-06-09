@@ -17,7 +17,7 @@ export default function FollowersUI() {
 }
 
 export function Followers() {
-  const [activeRoute, setActiveRoute] = useState<string>("Followers")
+  const [activeNav, setActiveNavigation] = useState<string>("Followers")
 
   const pastAthousand: string =
     suggestedFollows.length >= 1000
@@ -26,16 +26,12 @@ export function Followers() {
         ? "M"
         : "";
 
-  const HandleRouteChange = () => setActiveRoute("");
+  const HandleRouteChange = () => setActiveNavigation("");
 
   return (
     <div className={style.followMainCont}>
       <div className={style.titleFollowers}>
-        <p className={style.FollowerText}>{activeRoute}</p>
-        <p>
-          <span style={{color: "var(--primary-theme)", fontSize: "1.4rem", fontWeight: "bold"}}>{suggestedFollows.length}</span>
-          {pastAthousand} followers
-        </p>
+        <ActiveRoutes count={suggestedFollows.length} />
       </div>
       <div></div>
       <div className={style.mappedFollowers}>
@@ -70,59 +66,31 @@ export function People({ data }: { data: FollowUsers }) {
   );
 }
 
-// "use client"; // Required for click handlers in Next.js App Router
+export function ActiveRoutes({ count }: {count: number}) {
+  const [active, setActive] = useState("Followers")
 
-// import React from "react";
+  const routes: {id: number, route: string}[] = [
+    {id: 1, route: "Friends"},
+    {id: 2, route: "Followers"},
+    {id: 3, route: "Following"},
+  ]
 
-// export default function MultiElementReader() {
-  
-//   // 1. Single unified click handler
-//   // Use HTMLGenericElement or HTMLElement so it handles divs, paragraphs, etc.
-//   const handleElementClick = (event: React.MouseEvent<HTMLElement>) => {
-//     // Read the visible text content
-//     const textContent = event.currentTarget.textContent;
-    
-//     // Read custom data attributes (safer and cleaner than reading raw text)
-//     const elementRole = event.currentTarget.dataset.role;
-//     const elementId = event.currentTarget.dataset.id;
-
-//     console.log("--- Element Clicked ---");
-//     console.log("Text:", textContent);
-//     console.log("Role:", elementRole);
-//     console.log("ID:", elementId);
-//   };
-
-//   return (
-//     <div className="space-y-4 p-6">
-//       {/* Element 1: A Paragraph */}
-//       <p 
-//         onClick={handleElementClick}
-//         data-role="follower-count"
-//         data-id="101"
-//         className="p-3 bg-blue-50 cursor-pointer hover:bg-blue-100 rounded"
-//       >
-//         Followers: 1.2k
-//       </p>
-
-//       {/* Element 2: A Div */}
-//       <div 
-//         onClick={handleElementClick}
-//         data-role="following-count"
-//         data-id="102"
-//         className="p-3 bg-green-50 cursor-pointer hover:bg-green-100 rounded"
-//       >
-//         Following: 450
-//       </div>
-
-//       {/* Element 3: A Heading or Span */}
-//       <span 
-//         onClick={handleElementClick}
-//         data-role="friends-count"
-//         data-id="103"
-//         className="block p-3 bg-purple-50 cursor-pointer hover:bg-purple-100 rounded"
-//       >
-//         Mutual Friends: 89
-//       </span>
-//     </div>
-//   );
-// }
+  function HandleActiveRoute(event: React.MouseEvent<HTMLDivElement>) {
+    setActive(event.currentTarget.textContent)
+  }
+  return (
+    <div>
+      <p className={style.FollowerText} >{active}</p>
+      <p>{count}</p>
+      <div className={style.displayNetwork}>
+      {routes.map((data) => {
+        return (
+          <div className={
+            active === data.route ? style.activeNetwork : ""
+          } key={data.id} onClick={HandleActiveRoute}>{data.route}</div>
+        )
+      })}
+    </div>
+    </div>
+  )
+}
