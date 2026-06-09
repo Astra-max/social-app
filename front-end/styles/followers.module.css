@@ -36,3 +36,17 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+
+.displayNetwork {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    gap: 1.5rem;
+    cursor: pointer;
+}
+
+.activeNetwork {
+    border-bottom: 0.2rem solid var(--primary-theme);
+    font-weight: bold;
+    color: var(--primary-theme);
+}
