@@ -1,5 +1,5 @@
 .followMainCont {
-    width: 60%;
+    width: 57%;
     overflow-y: scroll;
     height: 100vh;
     background-color:  rgb(20, 20, 20);
@@ -40,7 +40,8 @@
 .displayNetwork {
     display: flex;
     align-items: center;
-    width: 30%;
+    width: 100%;
+    padding: 1rem 0rem;
     gap: 1.5rem;
     cursor: pointer;
 }
@@ -49,4 +50,15 @@
     border-bottom: 0.2rem solid var(--primary-theme);
     font-weight: bold;
     color: var(--primary-theme);
+}
+
+.nertworkSearchCont {
+    width: 100%;
+}
+
+.nertworkSearch {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 75%;
 }

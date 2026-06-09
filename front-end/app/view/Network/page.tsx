@@ -6,7 +6,21 @@ import { suggestedFollows } from "@/libs/dummy";
 import { Button } from "@/components/ui/button";
 import { ButtonData, FollowUsers } from "@/types";
 import style from "@/styles/followers.module.css";
+import { SearchUI } from "@/components/main/header";
 import { useState } from "react";
+
+type NetworkType = "Friends" | "Followers" | "Following" | "Suggested";
+
+interface PeopleProp {
+  data: FollowUsers;
+  networkType: NetworkType;
+}
+
+interface ActiveRoutesProps {
+  count: number;
+  active: NetworkType;
+  setActive: React.Dispatch<React.SetStateAction<NetworkType>>;
+}
 
 export default function FollowersUI() {
   return (
@@ -17,43 +31,49 @@ export default function FollowersUI() {
 }
 
 export function Followers() {
-  const [activeNav, setActiveNavigation] = useState<string>("Followers")
-
-  const pastAthousand: string =
-    suggestedFollows.length >= 1000
-      ? "K"
-      : suggestedFollows.length >= 1_000_000
-        ? "M"
-        : "";
-
-  const HandleRouteChange = () => setActiveNavigation("");
+  const [active, setActive] = useState<NetworkType>("Friends");
 
   return (
     <div className={style.followMainCont}>
       <div className={style.titleFollowers}>
-        <ActiveRoutes count={suggestedFollows.length} />
+        <ActiveRoutes
+          count={suggestedFollows.length}
+          active={active}
+          setActive={setActive}
+        />
       </div>
-      <div></div>
       <div className={style.mappedFollowers}>
         {suggestedFollows.map((data) => (
-          <People key={data.userId} data={data} />
+          <People key={data.userId} data={data} networkType={active} />
         ))}
       </div>
     </div>
   );
 }
 
-export function People({ data }: { data: FollowUsers }) {
+export function People({ data, networkType }: PeopleProp) {
+  const btnText =
+    networkType === "Following"
+      ? "Unfollow"
+      : networkType === "Followers"
+        ? "Remove"
+        : networkType === "Suggested"
+          ? "Follow"
+          : "Unfriend";
+
   const btnData: ButtonData = {
-    text: "followers",
-    style: { backgroundColor: "var(--primary-theme)", padding: "0.7rem 1rem" },
+    text: btnText,
+    style: {
+      backgroundColor: "var(--primary-theme)",
+      padding: "0.5rem 1rem",
+    },
   };
+
   return (
     <div className={style.peopleCont}>
       <div className={style.imageNameLoc}>
-        <div>
-          <UserProfileImage url={data.userProfileImage} />
-        </div>
+        <UserProfileImage url={data.userProfileImage} />
+
         <div>
           <p>{data.fullName}</p>
           <p>{data.location}</p>
@@ -66,31 +86,46 @@ export function People({ data }: { data: FollowUsers }) {
   );
 }
 
-export function ActiveRoutes({ count }: {count: number}) {
-  const [active, setActive] = useState("Followers")
+export function ActiveRoutes({ active, count, setActive }: ActiveRoutesProps) {
+  const routes: NetworkType[] = [
+    "Friends",
+    "Followers",
+    "Following",
+    "Suggested",
+  ];
 
-  const routes: {id: number, route: string}[] = [
-    {id: 1, route: "Friends"},
-    {id: 2, route: "Followers"},
-    {id: 3, route: "Following"},
-  ]
-
-  function HandleActiveRoute(event: React.MouseEvent<HTMLDivElement>) {
-    setActive(event.currentTarget.textContent)
-  }
   return (
-    <div>
-      <p className={style.FollowerText} >{active}</p>
-      <p>{count}</p>
+    <div className={style.nertworkSearchCont}>
+      <div className={style.nertworkSearch}>
+        <div>
+          <p className={style.FollowerText}>{active}</p>
+          <p
+            style={{
+              color: "var(--primary-theme)",
+              fontSize: "1.1rem",
+              fontWeight: "bold",
+            }}
+          >
+            {count}
+          </p>
+        </div>
+        <div style={{flex: "1"}}>
+          <SearchUI />
+        </div>
+      </div>
       <div className={style.displayNetwork}>
-      {routes.map((data) => {
-        return (
-          <div className={
-            active === data.route ? style.activeNetwork : ""
-          } key={data.id} onClick={HandleActiveRoute}>{data.route}</div>
-        )
-      })}
+        {routes.map((route) => (
+          <div
+            key={route}
+            onClick={() => setActive(route)}
+            className={
+              active === route ? style.activeNetwork : style.networkItem
+            }
+          >
+            {route}
+          </div>
+        ))}
+      </div>
     </div>
-    </div>
-  )
+  );
 }
