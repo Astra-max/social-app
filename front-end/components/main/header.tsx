@@ -10,45 +10,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { setToggle } from "@/store/features/toggleSideBarSlice";
 import { RootState } from "@/store/store";
 
-export function SearchUI() {
-  const initialState: FormState = {
-    success: false,
-    message: "",
-    error: null,
-  };
 
-  const [state, formAction] = useActionState<FormState, FormData>(
-    sendData,
-    initialState,
-  );
-
-  return (
-    <form action={formAction} className="style-search-fm">
-      <span className={"search-icon"}>
-        <Search size={23} />
-      </span>
-      <input
-        className="search-bar"
-        type="search"
-        name="search"
-        id="search"
-        placeholder="search user, posts, groups, events"
-      />
-    </form>
-  );
+interface SearchUIProps {
+  placeholder?: string;
+  className?: string;
 }
 
 export const sendData = async (
   prevState: FormState,
   formData: FormData,
 ): Promise<FormState> => {
-  const email = formData?.get("search") as string;
+  const query = formData?.get("search") as string;
   return {
     success: true,
-    message: `${email} sent search succefully`,
+    message: `${query} sent successfully`,
     error: null,
   };
 };
+
+export function SearchUI({
+  placeholder = "Search users, posts, groups…",
+  className = "",
+}: SearchUIProps) {
+  const initialState: FormState = { success: false, message: "", error: null };
+  const [, formAction] = useActionState<FormState, FormData>(sendData, initialState);
+
+  return (
+    <form action={formAction} className={`search-form ${className}`}>
+      <div className="search-inner">
+        <Search className="search-icon-svg" size={16} aria-hidden="true" />
+        <input
+          className="search-input"
+          type="search"
+          name="search"
+          id="search"
+          placeholder={placeholder}
+          autoComplete="off"
+        />
+      </div>
+    </form>
+  );
+}
 
 export function HomeNavElements() {
   const navElements = [
