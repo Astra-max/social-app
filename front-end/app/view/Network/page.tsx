@@ -35,13 +35,15 @@ export function Followers() {
 
   return (
     <div className={style.followMainCont}>
-      <div className={style.titleFollowers}>
+      <div className={style.followHeader}>
         <ActiveRoutes
           count={suggestedFollows.length}
           active={active}
           setActive={setActive}
         />
       </div>
+
+      {/* Scrollable list only */}
       <div className={style.mappedFollowers}>
         {suggestedFollows.map((data) => (
           <People key={data.userId} data={data} networkType={active} />
@@ -65,7 +67,10 @@ export function People({ data, networkType }: PeopleProp) {
     text: btnText,
     style: {
       backgroundColor: "var(--primary-theme)",
-      padding: "0.5rem 1rem",
+      padding: "0.5rem 1.25rem",
+      borderRadius: "0.5rem",
+      fontSize: "0.875rem",
+      fontWeight: "500",
     },
   };
 
@@ -73,10 +78,9 @@ export function People({ data, networkType }: PeopleProp) {
     <div className={style.peopleCont}>
       <div className={style.imageNameLoc}>
         <UserProfileImage url={data.userProfileImage} />
-
-        <div>
-          <p>{data.fullName}</p>
-          <p>{data.location}</p>
+        <div className={style.personText}>
+          <p className={style.personName}>{data.fullName}</p>
+          <p className={style.personLocation}>{data.location}</p>
         </div>
       </div>
       <div>
@@ -95,35 +99,26 @@ export function ActiveRoutes({ active, count, setActive }: ActiveRoutesProps) {
   ];
 
   return (
-    <div className={style.nertworkSearchCont}>
-      <div className={style.nertworkSearch}>
-        <div>
+    <div className={style.networkHeader}>
+      {/* Title row */}
+      <div className={style.networkTitleRow}>
+        <div className={style.networkTitleGroup}>
           <p className={style.FollowerText}>{active}</p>
-          <p
-            style={{
-              color: "var(--primary-theme)",
-              fontSize: "1.1rem",
-              fontWeight: "bold",
-            }}
-          >
-            {count}
-          </p>
+          <span className={style.networkCount}>{count}</span>
         </div>
-        <div style={{flex: "1"}}>
-          <SearchUI />
-        </div>
+        <SearchUI placeholder={`Search ${active.toLowerCase()}…`} />
       </div>
+
+      {/* Tab row */}
       <div className={style.displayNetwork}>
         {routes.map((route) => (
-          <div
+          <button
             key={route}
             onClick={() => setActive(route)}
-            className={
-              active === route ? style.activeNetwork : style.networkItem
-            }
+            className={`${style.networkTab} ${active === route ? style.activeNetwork : ""}`}
           >
             {route}
-          </div>
+          </button>
         ))}
       </div>
     </div>
