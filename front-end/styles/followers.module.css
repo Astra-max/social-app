@@ -1,64 +1,160 @@
 .followMainCont {
-    width: 57%;
-    overflow-y: scroll;
-    height: 100vh;
-    background-color:  rgb(20, 20, 20);
-    padding: 0rem 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 57%;
+  height: 100vh;
+  background-color: rgb(20, 20, 20);
+  overflow: hidden; 
 }
 
-.peopleCont {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--fade-background);
-    padding: 2rem 2rem;
-    border-radius: 0.5rem;
-    width: 100%;
+.followHeader {
+  flex-shrink: 0;            
+  padding: 1.75rem 2rem 0;
+  background-color: rgb(20, 20, 20);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+.mappedFollowers {
+  flex: 1;                   
+  overflow-y: auto;         
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+
+  /* nicer scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+.mappedFollowers::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mappedFollowers::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mappedFollowers::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+.networkHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.networkTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.networkTitleGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .FollowerText {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f3f4f6;
+  line-height: 1;
 }
 
-.titleFollowers {
-    padding: 2.2rem 0rem;
+.networkCount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-theme);
 }
 
-.imageNameLoc {
-    width: 70%;
-    display: flex;
-    gap: 1rem;
-}
-
-.mappedFollowers {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+/* Search sits in the title row and fills remaining space */
+.networkTitleRow > :last-child {
+  flex: 1;
+  min-width: 0;
 }
 
 .displayNetwork {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 1rem 0rem;
-    gap: 1.5rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.networkTab {
+  padding: 0.6rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;   /* sit on top of the container border-bottom */
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.networkTab:hover:not(.activeNetwork) {
+  color: #e5e7eb;
 }
 
 .activeNetwork {
-    border-bottom: 0.2rem solid var(--primary-theme);
-    font-weight: bold;
-    color: var(--primary-theme);
+  color: var(--primary-theme);
+  border-bottom-color: var(--primary-theme);
+  font-weight: 600;
 }
 
-.nertworkSearchCont {
-    width: 100%;
+.peopleCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--fade-background);
+  padding: 1rem 1.25rem;
+  border-radius: 0.625rem;
+  width: 100%;
+  gap: 1rem;
+  transition: background-color 0.15s;
 }
 
-.nertworkSearch {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    width: 75%;
+.peopleCont:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.imageNameLoc {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;      
+  flex: 1;
+}
+
+.personText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.personName {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f3f4f6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.personLocation {
+  font-size: 0.8125rem;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
