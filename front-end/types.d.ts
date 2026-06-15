@@ -64,5 +64,12 @@ export interface UserProfileData {
     aboutMe: string;
 }
 
+export interface ChatMessages {
+    senderId: number;
+    receiverId: number;
+    content: string;
+    createdAt: Date;
+}
+
 export type UserPersonalData = UserProfileData & UserActivity
 export type UserPostData = PostData & UserProfile
