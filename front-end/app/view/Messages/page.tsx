@@ -1,9 +1,7 @@
-import DefaultLayout from "@/components/layouts/defaultLayout";
+import ChatUser from "./[userId]/page"
 
 export default function MessagesUI() {
     return (
-        <DefaultLayout>
-            <div>chat message page</div>
-        </DefaultLayout>
+       <ChatUser />
     )
 }

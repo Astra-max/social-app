@@ -59,8 +59,8 @@ export function Logo() {
   };
 
   return (
-    <div style={styleLogo}>
-      <div>
+    <div  style={styleLogo}>
+      <Link href={"/view/Home"}>
         <Image
           src={"/social-network-logo.svg"}
           width={50}
@@ -68,7 +68,7 @@ export function Logo() {
           alt="social-app logo"
           loading="eager"
         />
-      </div>
+      </Link>
     </div>
   );
 }

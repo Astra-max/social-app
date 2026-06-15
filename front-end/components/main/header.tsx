@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, Menu, Search } from "lucide-react";
-import { FormState, ButtonData } from "@/types";
+import { FormState } from "@/types";
 import { useActionState } from "react";
 import { Home, Bell, MessageSquareDot } from "lucide-react";
 import "@/styles/nav-side-bar.css";
