@@ -6,7 +6,7 @@ import DefaultLayout from "@/components/layouts/defaultLayout"
 export default function HomePage() {
     return (
         <DefaultLayout>
-            <RegisterUI />
+            <LogIn />
         </DefaultLayout>
     )
 }
