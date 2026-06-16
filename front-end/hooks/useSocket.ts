@@ -1,18 +1,22 @@
 "use client"
 
+import { ChatMessages } from "@/types"
+import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react"
 
-export default function useSocket() {
+export interface SocketType {
+    connected: boolean;
+    messages: ChatMessages[];
+    sendMessage: (message: ChatMessages) => void;
+}
+
+export default function useSocket(url: string, userId: string): SocketType {
     const [connected, setConnected] = useState<boolean>(false)
+    const [messages, setMessages] = useState<ChatMessages[]>([])
     const socketRef = useRef<WebSocket | null>(null)
 
-    const env = process.env.NODE_ENV
-    const devUrl = process.env.WS_DEV_URL
-    let url = ""
-    if (env && env === "development" && devUrl) url = devUrl
-
     useEffect(()=> {
-        const socket = new WebSocket(url);
+        const socket = new WebSocket(`${url}?userId=${userId}`);
         socketRef.current = socket;
 
         socket.onopen = ()=> {
@@ -23,5 +27,32 @@ export default function useSocket() {
             console.log("connection closed")
             setConnected(false)
         }
-    })
+        socket.onerror = (err: Event) => {
+            console.log(err)
+        }
+        socket.onmessage = (event: MessageEvent) => {
+            const message: ChatMessages = JSON.parse(event.data)
+            setMessages((prev)=> [...prev, message])
+        }
+        return ()=> {
+            socket.close()
+        }
+    },[url])
+
+    const sendMessage = (message: ChatMessages) => {
+        if (
+            socketRef.current &&
+            socketRef.current.readyState === WebSocket.OPEN 
+        ) {
+            setMessages((prev) => [...prev, message])
+            socketRef.current.send(JSON.stringify(message))
+        }
+    }
+    
+    return {
+        connected,
+        messages,
+        sendMessage
+    }
+
 }
