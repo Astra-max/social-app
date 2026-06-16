@@ -2,6 +2,7 @@ import { SingleUserChatProfile } from "./[userId]/page";
 import SendTextMessage from "@/components/ui/sendUI";
 import { Messages } from "./[userId]/page";
 import ChatSideBar from "./chats";
+import { ChatMessages, FollowUsers, UserProfile } from "@/types";
 
 export default function ChatLayout({ children }: Readonly<{ children: React.ReactNode}>) {
     return (
@@ -12,25 +13,26 @@ export default function ChatLayout({ children }: Readonly<{ children: React.Reac
     )
 }
 
-interface UserProfile {
-    userProfileImage: string;
-    fullName: string;
+interface Props {
+    data: FollowUsers,
+    connected: boolean;
+    messages: ChatMessages[];
+    sendMessage: (message: ChatMessages)=> void;
 }
 
 export function ChatContentLayout({
-  data,
-}: {
-  data: UserProfile;
-}) {
+  data, connected, messages, sendMessage
+}: Props) {
   return (
     <div className="w-full flex flex-col h-screen bg-[#181818]">
       <SingleUserChatProfile data={data} />
 
       <div className="flex-1 overflow-y-auto px-5 py-6">
-        <Messages />
+        <Messages messages={messages} />
       </div>
 
-      <SendTextMessage />
+      <SendTextMessage sendMessage={sendMessage} />
+      {!connected && <p className="text-red-500 absolute align-middle">Connection offline...</p>}
     </div>
   );
 }
