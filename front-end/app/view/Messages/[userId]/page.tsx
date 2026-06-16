@@ -4,15 +4,21 @@ import UserProfileImage from "@/components/header/profile/userProfile";
 import { suggestedFollows } from "@/libs/dummy";
 import { useParams, usePathname } from "next/navigation";
 import Image from "next/image";
-import { Send, Phone, Video, MoreVertical } from "lucide-react";
+import { Phone, Video, MoreVertical } from "lucide-react";
 import { ChatContentLayout } from "../layout";
-import useSocket from "@/hooks/useSocket";
+import useSocket, { SocketType } from "@/hooks/useSocket";
+import loadEnvFile from "@/config/config";
+import { ChatMessages } from "@/types";
 
 export default function ChatUser() {
   const { userId } = useParams();
   const pathname = usePathname();
 
-  useSocket();
+  const config = loadEnvFile({urlType: "socket-url", urlUsage: "chat"})
+
+  if (!config.sockectUrl || !userId) return null
+  
+  const {connected, messages, sendMessage}: SocketType = useSocket(config.sockectUrl, String(userId));
 
   if (pathname === "/view/Messages") {
     return <NewChat />;
@@ -30,7 +36,12 @@ export default function ChatUser() {
     );
   }
 
-  return <ChatContentLayout data={data} />;
+  return <ChatContentLayout
+  data={data}
+  messages={messages}
+  connected={connected}
+  sendMessage={sendMessage}
+  />;
 }
 
 interface UserProfile {
@@ -75,28 +86,11 @@ export function SingleUserChatProfile({
   );
 }
 
-export function Messages() {
+export function Messages( { messages }: { messages: ChatMessages[]}) {
+  const { userId } = useParams();
   return (
     <div className="flex flex-col gap-4">
-      <MessageBubble
-        text="Hey, how are you?"
-        sender={false}
-      />
-
-      <MessageBubble
-        text="I'm good. Working on the social network project."
-        sender={true}
-      />
-
-      <MessageBubble
-        text="Nice! How is the chat feature coming along?"
-        sender={false}
-      />
-
-      <MessageBubble
-        text="Almost done. Just styling the UI."
-        sender={true}
-      />
+      {messages.map((msg) => <MessageBubble key={msg.messageId} text={msg.content} sender={msg.senderId === Number(userId)} />)}
     </div>
   );
 }
