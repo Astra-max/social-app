@@ -1,6 +1,12 @@
 import { LucideProps } from "lucide-react";
 import { IconType } from "react-icons";
 
+export interface AuthState {
+    user: {userId: string, token: string | null}
+    error: null;
+    loading: boolean
+}
+
 export interface FormState {
     success: boolean;
     error: string | null;
@@ -65,10 +71,11 @@ export interface UserProfileData {
 }
 
 export interface ChatMessages {
+    messageId: string;
     senderId: number;
     receiverId: number;
     content: string;
-    createdAt: Date;
+    createdAt: string;
 }
 
 export type UserPersonalData = UserProfileData & UserActivity
