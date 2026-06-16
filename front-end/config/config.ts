@@ -1,6 +1,6 @@
 interface Props {
     urlType: string;
-    urlUsage: string;
+    urlUsage?: string;
 }
 
 interface Config {
@@ -24,7 +24,7 @@ export default function loadEnvFile(urlProperties: Props): Config {
                     }
                     break;
                 case "group":
-                     if (
+                    if (
                         env && env === "development"
                     ) {
                         const dev = process.env.NEXT_PUBLIC_WS_DEV_GROUP_URL ?? "ws://localhost:8080/ws/group"
@@ -38,13 +38,19 @@ export default function loadEnvFile(urlProperties: Props): Config {
                         const dev = process.env.NEXT_PUBLIC_WS_DEV_NOTIFICATION_URL ?? "ws://localhost:8080/ws/notifications"
                         config.sockectUrl = dev
                     }
-                    break;          
+                    break;
                 default:
                     console.log("provide url usage type")
                     break;
             }
             break;
         case "baseUrl":
+            if (
+                env && env === "development"
+            ) {
+                const dev = process.env.NEXT_PUBLIC_DEV_BASE_URL ?? "http://localhost:8080"
+                config.baseUrl = dev
+            }
             break;
         default:
             console.log("missing url type [usage: socket-url] [usage: base-url]")
