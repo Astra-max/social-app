@@ -1,46 +1,33 @@
-import Api, { config } from "./axios";
-import { store } from "@/store/store";
-import { logout, setAccessToken } from "@/store/features/authSlice";
-import axios from "axios";
+import { Api } from "./axios";
+import { setAccessToken } from "./token";
 
-const refreshApi = axios.create({
-    baseURL: config.baseUrl,
-    withCredentials: true,
-});
+
 
 Api.interceptors.response.use(
-    (res) => res,
-    async (error) => {
-        const originalRequest = error.config;
+  (res) => res,
+  async (error) => {
+    const original = error.config;
 
-        if (!error.response) {
-            return Promise.reject(error);
-        }
+    if (error.response?.status === 401 && !original._retry) {
+      original._retry = true;
 
-        if (
-            error.response.status === 401 &&
-            !originalRequest._retry
-        ) {
-            originalRequest._retry = true;
+      try {
+        const res = await Api.post("/auth/refresh");
 
-            try {
-                const response = await refreshApi.post("/auth/refresh");
+        const newToken = res.data.accessToken;
 
-                const newAccessToken = response.data.accessToken;
+        setAccessToken(newToken);
 
-                store.dispatch(setAccessToken(newAccessToken));
+        original.headers.Authorization = `Bearer ${newToken}`;
 
-                originalRequest.headers.Authorization =
-                    `Bearer ${newAccessToken}`;
-
-                return Api(originalRequest);
-            } catch (err) {
-                store.dispatch(logout());
-                window.location.href = "/view/Home";
-                return Promise.reject(err);
-            }
-        }
-
-        return Promise.reject(error);
+        return Api(original);
+      } catch (err) {
+        setAccessToken(null);
+        window.location.href = "/login";
+        return Promise.reject(err);
+      }
     }
+
+    return Promise.reject(error);
+  }
 );
