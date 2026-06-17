@@ -2,9 +2,9 @@ package sqlite
 
 import (
 	"database/sql"
-	"social-network/backend/internal/models"
 
 	"github.com/google/uuid"
+	"social-network/backend/internal/models"
 )
 
 type notificationRepository struct {
@@ -20,14 +20,15 @@ func (r *notificationRepository) CreateNotification(n *models.Notification) erro
 		n.ID = uuid.New().String()
 	}
 	_, err := r.db.Exec(`
-		INSERT INTO notifications (id, user_id, actor_id, type, reference_id, is_read, created_at)
+		INSERT INTO notifications (id, user_id, actor_id, type, ref_id, is_read, created_at)
 		VALUES (?, ?, ?, ?, ?, ?, ?)
 	`, n.ID, n.UserID, n.ActorID, n.Type, n.ReferenceID, n.IsRead, n.CreatedAt)
 	return err
 }
+
 func (r *notificationRepository) GetNotificationsByUserID(userID string) ([]*models.Notification, error) {
 	rows, err := r.db.Query(`
-		SELECT id, user_id, actor_id, type, reference_id, is_read, created_at
+		SELECT id, user_id, actor_id, type, ref_id, is_read, created_at
 		FROM notifications
 		WHERE user_id = ?
 		ORDER BY created_at DESC
@@ -50,7 +51,7 @@ func (r *notificationRepository) GetNotificationsByUserID(userID string) ([]*mod
 
 func (r *notificationRepository) MarkNotificationAsRead(notificationID, userID string) error {
 	_, err := r.db.Exec(`
-		UPDATE notifications SET is_read = true
+		UPDATE notifications SET is_read = 1
 		WHERE id = ? AND user_id = ?
 	`, notificationID, userID)
 	return err
