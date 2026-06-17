@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import toggleBar from "@/store/features/toggleSideBarSlice"
+import toggleBarSlice from "@/store/features/toggleSideBarSlice"
+import authSlice from "@/store/features/authSlice"
 
 
 export const store = configureStore({
     reducer: {
-        toggleSideBar:  toggleBar
+        auth: authSlice,
+        toggleSideBar:  toggleBarSlice,
     },
 })
 
