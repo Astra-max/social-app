@@ -1,8 +1,9 @@
 import loadEnvFile from "@/config/config";
-import axios from "axios";
+import { store } from "@/store/store";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
 
-const config = loadEnvFile({urlType: "baseurl"})
+export const config = loadEnvFile({urlType: "baseurl"})
 
 const Api = axios.create({
     baseURL: config.baseUrl,
@@ -11,5 +12,15 @@ const Api = axios.create({
         "Content-Type": "application/json",
     },
 });
+
+
+Api.interceptors.request.use((config: InternalAxiosRequestConfig<any>)=> {
+    const token = store.getState().auth.accessToken;
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
 
 export default Api;
