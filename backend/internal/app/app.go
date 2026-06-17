@@ -29,20 +29,22 @@ func New() (*App, error) {
 	sessionRepo := repoSqlite.NewSessionRepository(db)
 	followerRepo := repoSqlite.NewFollowerRepository(db)
 	notificationRepo := repoSqlite.NewNotificationRepository(db)
+	postRepo := repoSqlite.NewPostRepository(db)
 
 	// 3. services
 	userService := services.NewUserService(userRepo)
 	sessionService := services.NewSessionService(sessionRepo)
 	followerService := services.NewFollowerService(followerRepo, userRepo, notificationRepo)
-
+	postService := services.NewPostService(postRepo, followerRepo, notificationRepo, userRepo)
 	// 4. handlers
 	authHandler := handlers.NewAuthHandler(userService, sessionService)
 	followerHandler := handlers.NewFollowerHandler(followerService)
+	postHandler := handlers.NewPostHandler(postService)
 
 	// 5. routes
 	mux := http.NewServeMux()
-	routes.Register(mux, authHandler, followerHandler, sessionService)
-
+	
+	routes.Register(mux, authHandler, followerHandler, postHandler, sessionService)
 	log.Println("app initialised")
 	return &App{Router: mux}, nil
 }

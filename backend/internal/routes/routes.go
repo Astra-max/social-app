@@ -7,7 +7,13 @@ import (
 	"social-network/backend/internal/services"
 )
 
-func Register(mux *http.ServeMux, authHandler *handlers.AuthHandler, followerHandler *handlers.FollowerHandler, sessionService *services.SessionService) {
+func Register(
+	mux *http.ServeMux,
+	authHandler *handlers.AuthHandler,
+	followerHandler *handlers.FollowerHandler,
+	postHandler *handlers.PostHandler,
+	sessionService *services.SessionService,
+) {
 	authWithSession := middleware.AuthMiddleware(sessionService)
 
 	// Health check
@@ -35,4 +41,14 @@ func Register(mux *http.ServeMux, authHandler *handlers.AuthHandler, followerHan
 	mux.Handle("/api/follow/{user_id}", authWithSession(http.HandlerFunc(followerHandler.Unfollow)))
 	mux.Handle("/api/followers", authWithSession(http.HandlerFunc(followerHandler.GetFollowers)))
 	mux.Handle("/api/following", authWithSession(http.HandlerFunc(followerHandler.GetFollowing)))
+
+	// Private Post Routes
+	mux.Handle("/api/posts", authWithSession(http.HandlerFunc(postHandler.CreatePost)))
+	mux.Handle("/api/posts/feed", authWithSession(http.HandlerFunc(postHandler.GetFeed)))
+	mux.Handle("/api/posts/{post_id}", authWithSession(http.HandlerFunc(postHandler.GetPostByID)))
+	mux.Handle("/api/posts/{post_id}/update", authWithSession(http.HandlerFunc(postHandler.UpdatePost)))
+	mux.Handle("/api/posts/{post_id}/delete", authWithSession(http.HandlerFunc(postHandler.DeletePost)))
+	mux.Handle("/api/users/{user_id}/posts", authWithSession(http.HandlerFunc(postHandler.GetPostsByUserID)))
+	mux.Handle("/api/posts/{post_id}/comments", authWithSession(http.HandlerFunc(postHandler.CreateComment)))
+	mux.Handle("/api/posts/{post_id}/comments/all", authWithSession(http.HandlerFunc(postHandler.GetCommentsByPostID)))
 }
