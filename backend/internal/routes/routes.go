@@ -52,4 +52,8 @@ func Register(
 	mux.Handle("/api/users/{user_id}/posts", authWithSession(http.HandlerFunc(postHandler.GetPostsByUserID)))
 	mux.Handle("/api/posts/{post_id}/comments", authWithSession(http.HandlerFunc(postHandler.CreateComment)))
 	mux.Handle("/api/posts/{post_id}/comments/all", authWithSession(http.HandlerFunc(postHandler.GetCommentsByPostID)))
+
+	// Private Notification Routes
+	mux.Handle("/api/notifications", authWithSession(http.HandlerFunc(notificationHandler.GetNotifications)))
+	mux.Handle("/api/notifications/{notification_id}/read", authWithSession(http.HandlerFunc(notificationHandler.MarkAsRead)))
 }
