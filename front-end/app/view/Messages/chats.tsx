@@ -2,7 +2,6 @@ import UserProfileImage from "@/components/header/profile/userProfile";
 import { SearchUI } from "@/components/main/header";
 import { suggestedFollows } from "@/libs/dummy";
 import { Logo } from "@/components/sidebar/sidebar";
-import { Send } from "lucide-react";
 import Link from "next/link";
 
 export default function ChatSideBar() {

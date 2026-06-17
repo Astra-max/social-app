@@ -1,11 +1,11 @@
 import loadEnvFile from "@/config/config";
-import { store } from "@/store/store";
-import axios, { InternalAxiosRequestConfig } from "axios";
+import axios from "axios";
+import { getAccessToken } from "./token";
 
 
-export const config = loadEnvFile({urlType: "baseurl"})
+export const config = loadEnvFile({ urlType: "baseUrl" })
 
-const Api = axios.create({
+export const Api = axios.create({
     baseURL: config.baseUrl,
     withCredentials: true,
     headers: {
@@ -14,13 +14,12 @@ const Api = axios.create({
 });
 
 
-Api.interceptors.request.use((config: InternalAxiosRequestConfig<any>)=> {
-    const token = store.getState().auth.accessToken;
+Api.interceptors.request.use((config) => {
+  const token = getAccessToken();
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-})
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
 
-export default Api;
+  return config;
+});

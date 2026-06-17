@@ -19,6 +19,7 @@ export interface AuthState {
     accessToken: null;
     loading: boolean;
     error: null;
+    isAuthenticated: boolean;
 }
 
 export interface FormState {

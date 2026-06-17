@@ -53,7 +53,7 @@ export default function loadEnvFile(urlProperties: Props): Config {
             }
             break;
         default:
-            console.log("missing url type [usage: socket-url] [usage: base-url]")
+            console.log("Missing url type [usage: socket-url] | [usage: base-url]")
             break;
     }
     return config
