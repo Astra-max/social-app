@@ -1,10 +1,24 @@
 import { LucideProps } from "lucide-react";
 import { IconType } from "react-icons";
 
+
+
+export interface User {
+    userId: string;
+    userAvatar: string;
+    fullName: string;
+    DateOfBirth: string;
+    nickName: string;
+    aboutMe: string;
+    isPublic: boolean;
+    createdAt: string;
+}
+
 export interface AuthState {
-    user: {userId: string, token: string | null}
+    user: User;
+    accessToken: null;
+    loading: boolean;
     error: null;
-    loading: boolean
 }
 
 export interface FormState {
