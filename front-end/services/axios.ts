@@ -1,10 +1,11 @@
 import loadEnvFile from "@/config/config";
 import axios from "axios";
+import { getAccessToken } from "./token";
 
 
-const config = loadEnvFile({urlType: "baseurl"})
+export const config = loadEnvFile({ urlType: "baseUrl" })
 
-const Api = axios.create({
+export const Api = axios.create({
     baseURL: config.baseUrl,
     withCredentials: true,
     headers: {
@@ -12,4 +13,13 @@ const Api = axios.create({
     },
 });
 
-export default Api;
+
+Api.interceptors.request.use((config) => {
+  const token = getAccessToken();
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
