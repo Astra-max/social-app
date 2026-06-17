@@ -36,15 +36,17 @@ func New() (*App, error) {
 	sessionService := services.NewSessionService(sessionRepo)
 	followerService := services.NewFollowerService(followerRepo, userRepo, notificationRepo)
 	postService := services.NewPostService(postRepo, followerRepo, notificationRepo, userRepo)
+	notificationService := services.NewNotificationService(notificationRepo)
 	// 4. handlers
 	authHandler := handlers.NewAuthHandler(userService, sessionService)
 	followerHandler := handlers.NewFollowerHandler(followerService)
 	postHandler := handlers.NewPostHandler(postService)
+	notificationHandler := handlers.NewNotificationHandler(notificationService)
 
 	// 5. routes
 	mux := http.NewServeMux()
 	
-	routes.Register(mux, authHandler, followerHandler, postHandler, sessionService)
+	routes.Register(mux, authHandler, followerHandler, postHandler, notificationHandler, sessionService)
 	log.Println("app initialised")
 	return &App{Router: mux}, nil
 }

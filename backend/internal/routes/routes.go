@@ -12,6 +12,7 @@ func Register(
 	authHandler *handlers.AuthHandler,
 	followerHandler *handlers.FollowerHandler,
 	postHandler *handlers.PostHandler,
+	notificationHandler *handlers.NotificationHandler,
 	sessionService *services.SessionService,
 ) {
 	authWithSession := middleware.AuthMiddleware(sessionService)
