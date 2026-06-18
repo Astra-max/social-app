@@ -37,7 +37,7 @@ func (s *UserService) Register(req *models.RegisterRequest) (*models.User, error
 		LastName:    req.LastName,
 		DateOfBirth: req.DateOfBirth,
 		Avatar:      req.Avatar,
-		NickName:    req.NickName,
+		Nickname:    req.Nickname,
 		AboutMe:     req.AboutMe,
 		IsPublic:    true,
 	}
@@ -102,7 +102,7 @@ func (s *UserService) UpdateProfile(userID string, req *models.UpdateProfileRequ
 		user.DateOfBirth = req.DateOfBirth
 	}
 	if req.Nickname != "" {
-		user.NickName = req.Nickname
+		user.Nickname = req.Nickname
 	}
 	if req.AboutMe != "" {
 		user.AboutMe = req.AboutMe

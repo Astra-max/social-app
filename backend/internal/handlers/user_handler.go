@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"social-network/backend/internal/middleware"
 	"social-network/backend/internal/models"
 	"social-network/backend/internal/services"
-	"social-network/backend/internal/middleware"
 	"strings"
 )
 
@@ -59,6 +59,8 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		Expires:  session.ExpiresAt,
 		HttpOnly: true,
 		Path:     "/",
+		SameSite: http.SameSiteLaxMode,
+		Secure:   false, // set to true in production
 	})
 
 	w.Header().Set("Content-Type", "application/json")
@@ -70,7 +72,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		NickName:    user.NickName,
+		Nickname:    user.Nickname,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -106,8 +108,9 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		Expires:  session.ExpiresAt,
 		HttpOnly: true,
 		Path:     "/",
+		SameSite: http.SameSiteLaxMode,
+		Secure:   false, // set to true in production
 	})
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(models.UserResponse{
 		ID:          user.ID,
@@ -116,7 +119,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		NickName:    user.NickName,
+		Nickname:    user.Nickname,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -145,6 +148,8 @@ func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 		MaxAge:   -1,
 		HttpOnly: true,
 		Path:     "/",
+		SameSite: http.SameSiteLaxMode,
+		Secure:   false,
 	})
 
 	w.WriteHeader(http.StatusOK)
@@ -173,7 +178,7 @@ func (h *AuthHandler) Me(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		NickName:    user.NickName,
+		Nickname:    user.Nickname,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -213,7 +218,7 @@ func (h *AuthHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		NickName:    user.NickName,
+		Nickname:    user.Nickname,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -247,7 +252,7 @@ func (h *AuthHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		NickName:    user.NickName,
+		Nickname:    user.Nickname,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
