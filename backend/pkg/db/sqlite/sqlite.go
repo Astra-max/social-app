@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 package sqlite
 
 import (
@@ -44,4 +41,3 @@ func runMigrations(db *sql.DB) {
 
     log.Println("migrations applied")
 }
->>>>>>> lucciano
