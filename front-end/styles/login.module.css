@@ -1,0 +1,229 @@
+.loginWrapper {
+  position: relative;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.loginWrapper::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--primary-theme) 35%, transparent) 0%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.loginCont {
+  position: relative;
+  width: 100%;        /* ← CONTAINER WIDTH: increase to 480px, 520px, 560px for wider */
+  padding: 3rem;           /* ← INNER PADDING: increase to 3.5rem, 4rem for more breathing room */
+  background-color: #18181b;
+  border-radius: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.loginCont::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 3rem;              /* ← matches padding, was 1.5rem */
+  right: 3rem;             /* ← matches padding, was 1.5rem */
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-theme),
+    color-mix(in srgb, var(--primary-theme) 40%, white)
+  );
+}
+
+.welcomeCont {
+  padding-bottom: 0.25rem;
+}
+
+.welcomeNote {
+  font-size: 1.6rem;       /* ← slightly larger for the wider card */
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: white;
+  margin: 0 0 0.4rem;
+}
+
+.welcomeCont p:last-child {
+  color: #9a9aa0;
+  font-size: 0.95rem;      /* ← slightly larger */
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;             /* ← increased from 1.25rem */
+}
+
+.userInputCont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;             /* ← slightly more gap */
+}
+
+.userInputCont label {
+  font-size: 0.9rem;       /* ← slightly larger */
+  color: #d4d4d8;
+  font-weight: 500;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconPosition {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.userInput {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;    /* ← taller inputs, more comfortable */
+  background-color: #242428;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  outline: none;
+  color: white;
+  font-size: 1rem;                 /* ← standard 16px, prevents iOS zoom */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.userInput::placeholder {
+  color: #6b6b70;
+}
+
+.userInput:focus {
+  border-color: var(--primary-theme);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-theme) 15%, transparent);
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;              /* ← aligned with new padding */
+  color: #6b6b70;
+  pointer-events: none;
+}
+
+.iconBtn {
+  position: absolute;
+  right: 1rem;             /* ← aligned with new padding */
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b6b70;
+  border-radius: 0.35rem;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.iconBtn:hover {
+  color: var(--primary-theme);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid var(--primary-theme);
+  outline-offset: 2px;
+}
+
+.passwordInput {
+  padding-right: 3rem;     /* ← matches right padding + icon space */
+}
+
+.forgot {
+  color: var(--primary-theme);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.forgot:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.orCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b6b70;
+  position: relative;
+}
+
+.orCont::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.orCont span {
+  background-color: #18181b;
+  padding: 0 1rem;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.footer {
+  text-align: center;
+  color: #9a9aa0;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.link {
+  color: var(--primary-theme);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}

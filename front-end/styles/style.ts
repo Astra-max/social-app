@@ -1,7 +1,9 @@
+import { CSSProperties } from "react";
+
 export const navSideBar = {
     backgroundColor: "var(--fade-background)",
-    maxWidth: "30%",
-    width: "16%",
+    flex: "0 0 23%",
+    width: "23%",
     height: "100vh",
     borderRadius: "0.4rem",
 }
@@ -23,4 +25,26 @@ export const nonActive = {
     display: "flex",
     alignItems: "center",
     gap: "0.8rem"
+}
+
+export const createPostBtn = {
+    backgroundColor: "var(--primary-theme)",
+    padding: "0.6rem 1rem",
+    cursor: "pointer",
+    borderRadius: "0.4rem",
+    fontWeigth: "bold"
+}
+
+export const btnFollowStyle = {
+  backgroundColor: "var(--primary-theme)",
+  color: "#fff",
+  padding: "0.4rem 0.7rem",
+  borderRadius: "0.5rem",
+};
+
+export const insertIcon: CSSProperties = {
+    position: "absolute",
+    top: "50%",
+    left: "1rem",
+    transform: "translateY(-50%)",
 }

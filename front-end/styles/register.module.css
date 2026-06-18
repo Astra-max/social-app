@@ -1,0 +1,87 @@
+.registerMainCont {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerCont {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: rgb(9, 20, 20);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    gap: 2rem;
+}
+
+.removeRegister {
+    font-size: 1.4rem;
+    font-weight: bold;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.imageAndData {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 69%;
+    background-color: rgb(31, 30, 30);
+    border-radius: 0.5rem;
+}
+
+.firstAndSecond {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.inputPtag {
+    padding-bottom: 0.7rem;
+    font-size: 1.2rem;
+}
+
+.pTitle {
+    font-size: 2.4rem;
+    font-weight: bold;
+}
+
+.pGoing {
+    font-size: 1.3rem;
+}
+
+.backLogin {
+    padding: 1rem 0rem;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.avatarMain {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding-left: 5rem;
+    top: -10rem;
+    gap: 3rem;
+}
+
+
+.avatarCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+    width: 20rem;
+    cursor: pointer;
+    height: 20rem;
+    border: 0.2rem dashed var(--primary-theme);
+}

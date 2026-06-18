@@ -1,0 +1,38 @@
+.userSFollowCont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--fade-background);
+    padding: 0.8rem 0.7rem;
+    border-radius: 0.4rem;
+    width: 100%;
+}
+
+.userSFollowMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    background-color: rgb(20, 20, 20);
+    border-radius: 0.5rem;
+    padding: 1rem 1rem;
+}
+
+.displayFollowProf {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.followImage {
+    overflow: hidden;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    position: relative;
+}
+
+.people {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
