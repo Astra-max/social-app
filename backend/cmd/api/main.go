@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"social-network/backend/internal/app"
+	"social-network/backend/internal/middleware"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 	}
 
 	log.Println("server listening on :8080")
-	if err := http.ListenAndServe(":8080", application.Router); err != nil {
+	if err := http.ListenAndServe(":8080", middleware.CORSMiddleware(application.Router)); err != nil {
 		log.Fatal(err)
 	}
 }
