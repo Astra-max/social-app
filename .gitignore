@@ -1,0 +1,33 @@
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# Go
+backend/vendor/
+backend/bin/
+
+# Environment
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+pkg/logger/logs/*
+
+# Uploads (user generated content, not code)
+backend/uploads/avatars/*
+backend/uploads/posts/*
+backend/uploads/comments/*
+!backend/uploads/avatars/t.png
+!backend/uploads/posts/p.png
+!backend/uploads/comments/c.png
+
+# Frontend
+front-end/node_modules/
+front-end/.next/
+front-end/out/
