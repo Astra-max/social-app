@@ -39,7 +39,3 @@ export default function ChatSideBar() {
         </aside>
     )
 }
-
-
-
-export function MyFriends() { }
