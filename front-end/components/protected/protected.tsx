@@ -17,7 +17,7 @@ export default function ProtectedRoute({
 
   const [checking, setChecking] = useState(true);
 
-  // 🔐 SESSION RESTORE (REAL AUTH CHECK)
+  // SESSION RESTORE (REAL AUTH CHECK)
   useEffect(() => {
     const initAuth = async () => {
       try {
@@ -38,14 +38,14 @@ export default function ProtectedRoute({
     initAuth();
   }, [dispatch]);
 
-  // ⏳ PREVENT FLICKER
+  //  PREVENT FLICKER
   if (checking) return null;
 
   const isAuth = isAuthenticated;
 
   return (
     <div className="w-full relative min-h-screen">
-      {/* 👇 YOUR ORIGINAL STYLE LOGIC KEPT */}
+      {/* YOUR ORIGINAL STYLE LOGIC KEPT */}
       <div className={isAuth ? "" : "blur-sm pointer-events-none"}>
         {children}
       </div>

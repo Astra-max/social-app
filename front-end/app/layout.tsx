@@ -43,7 +43,6 @@ export default function RootLayout({
           <AuthProvider>
             {children}
           </AuthProvider>
-          {children}
         </StateProvider>
       </body>
     </html>
