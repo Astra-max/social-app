@@ -60,7 +60,6 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		Path:     "/",
 		SameSite: http.SameSiteLaxMode,
-		Secure:   false, // set to true in production
 	})
 
 	w.Header().Set("Content-Type", "application/json")
@@ -109,7 +108,6 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		Path:     "/",
 		SameSite: http.SameSiteLaxMode,
-		Secure:   false, // set to true in production
 	})
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(models.UserResponse{
@@ -149,7 +147,6 @@ func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		Path:     "/",
 		SameSite: http.SameSiteLaxMode,
-		Secure:   false,
 	})
 
 	w.WriteHeader(http.StatusOK)
