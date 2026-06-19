@@ -36,7 +36,7 @@ func (s *UserService) Register(req *models.RegisterRequest) (*models.User, error
 		FirstName:   req.FirstName,
 		LastName:    req.LastName,
 		DateOfBirth: req.DateOfBirth,
-		Avatar:      req.Avatar,
+		//Avatar:      req.Avatar,
 		NickName:    req.NickName,
 		AboutMe:     req.AboutMe,
 		IsPublic:    true,
@@ -57,7 +57,7 @@ func (s *UserService) Login(req *models.LoginRequest) (*models.User, error) {
 	}
 
 	if !utils.CheckPassword(user.Password, req.Password) {
-		return nil, errors.New("invalid email or password")
+		return nil, errors.New("invalid  password")
 	}
 
 	return user, nil
