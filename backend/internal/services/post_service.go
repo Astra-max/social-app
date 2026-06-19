@@ -4,9 +4,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/google/uuid"
 	"social-network/backend/internal/models"
 	"social-network/backend/internal/repositories/interfaces"
+
+	"github.com/google/uuid"
 )
 
 type PostService struct {

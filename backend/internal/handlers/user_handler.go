@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"social-network/backend/internal/middleware"
 	"social-network/backend/internal/models"
 	"social-network/backend/internal/services"
-	"social-network/backend/internal/middleware"
 	"strings"
 )
 
@@ -59,6 +59,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		Expires:  session.ExpiresAt,
 		HttpOnly: true,
 		Path:     "/",
+		SameSite: http.SameSiteLaxMode,
 	})
 
 	w.Header().Set("Content-Type", "application/json")
@@ -106,6 +107,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		Expires:  session.ExpiresAt,
 		HttpOnly: true,
 		Path:     "/",
+		SameSite: http.SameSiteLaxMode,
 	})
 
 	w.Header().Set("Content-Type", "application/json")
@@ -145,6 +147,7 @@ func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 		MaxAge:   -1,
 		HttpOnly: true,
 		Path:     "/",
+		SameSite: http.SameSiteLaxMode,
 	})
 
 	w.WriteHeader(http.StatusOK)
