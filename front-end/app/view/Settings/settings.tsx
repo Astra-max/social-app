@@ -30,46 +30,41 @@ const TABS = [
 ] as const;
 
 const tabButtonClass = (active: boolean) =>
-  active
-    ? "text-[#14afa7] font-bold"
-    : "";
+  active ? "text-[#14afa7] font-bold" : "text-white";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("account");
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [privateProfile, setPrivateProfile] = useState(true);
 
-  const { push } = useRouter();
+  const router = useRouter();
 
   return (
     <div className="w-full h-screen bg-[#181818]">
       <div className="grid h-full grid-cols-1 sm:grid-cols-[340px_1fr]">
         {/* Sidebar */}
-        <nav className="w-[100%] flex h-full min-h-screen flex-col bg-[#202020] p-5">
+        <nav className="flex h-full min-h-screen flex-col bg-[#202020] p-5">
           <h1 className="mb-6 text-3xl font-bold tracking-tight text-[#14afa7]">
             Settings
           </h1>
 
-          <ul className="flex gap-6 flex-col justify-evenly">
+          <ul className="flex flex-col gap-6">
             {TABS.map((tab) => {
               const Icon = tab.icon;
               const active = activeTab === tab.id;
-              if (tab.label === "Home" && active) {
-                push("/view/Home")
-                return null;
-              }
 
               return (
                 <li key={tab.id}>
                   <button
                     onClick={() => {
-                      if (tab.label === "Home") {
-                        push("/view/Home")
-                      } 
-                      setActiveTab(tab.id)
-                    }
-                    }
-                    className={`flex  gap-2 w-full items-center text-white-900 py-3 text-left text-[15px] font-medium cursor-pointer ${tabButtonClass(
+                      if (tab.id === "home") {
+                        router.push("/view/Home");
+                        return;
+                      }
+
+                      setActiveTab(tab.id);
+                    }}
+                    className={`flex w-full items-center gap-2 py-3 text-left text-[15px] font-medium cursor-pointer ${tabButtonClass(
                       active
                     )}`}
                   >
@@ -80,16 +75,17 @@ export default function SettingsPage() {
               );
             })}
           </ul>
-          <div className="mt-9">
-            <p className="text-align-middle">
+
+          <div className="mt-auto pt-10">
+            <button className="inline-flex items-center gap-2 text-base text-white">
               <LogOut className="text-red-500" size={20} strokeWidth={2} />
               Logout
-            </p>
+            </button>
           </div>
         </nav>
 
         {/* Content */}
-        <div className="h-full overflow-y-auto pr-2 mr-6 ml-6 mt-2 mb-5">
+        <div className="h-full overflow-y-auto px-6 py-4">
           <div className="space-y-6">
             {/* Appearance */}
             <div className="rounded-3xl border border-[#2d2d2d] bg-[#222222]">
@@ -105,15 +101,15 @@ export default function SettingsPage() {
                   </p>
                 </div>
 
-                <div className="flex w-72 bg-[#111] p-1">
+                <div className="flex w-72 rounded-lg bg-[#111] p-1">
                   {(["light", "dark"] as const).map((t) => (
                     <button
                       key={t}
                       onClick={() => setTheme(t)}
-                      className={`flex-1 rounded-lg text-sm font-medium capitalize ${
+                      className={`flex-1 rounded-lg py-2 text-sm font-medium capitalize transition ${
                         theme === t
-                          ? "bg-[--primary-theme] text-gray-400"
-                          : "text-gray-400 hover:bg-[--primary-theme] hover:text-gray-400"
+                          ? "bg-[--primary-theme] text-white"
+                          : "text-gray-400 hover:bg-[--primary-theme] hover:text-white"
                       }`}
                     >
                       {t}
@@ -142,15 +138,13 @@ export default function SettingsPage() {
                 <button
                   role="switch"
                   aria-checked={privateProfile}
-                  onClick={() => setPrivateProfile((v) => !v)}
-                  className={`relative h-7 w-12 rounded-full ${
-                    privateProfile
-                      ? "bg-[--primary-theme]"
-                      : "bg-[#111]"
+                  onClick={() => setPrivateProfile((prev) => !prev)}
+                  className={`relative h-7 w-12 rounded-full transition ${
+                    privateProfile ? "bg-[--primary-theme]" : "bg-[#111]"
                   }`}
                 >
                   <span
-                    className={`absolute top-0.5 h-6 w-6 rounded-full bg-white ${
+                    className={`absolute top-0.5 h-6 w-6 rounded-full bg-white transition-transform ${
                       privateProfile
                         ? "translate-x-[22px]"
                         : "translate-x-0.5"
@@ -182,7 +176,9 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between px-6 py-5">
                   <div>
-                    <p className="text-sm font-medium text-white">Current Password</p>
+                    <p className="text-sm font-medium text-white">
+                      Current Password
+                    </p>
                     <p className="mt-1 text-xs text-gray-400">
                       ••••••••••
                     </p>
@@ -195,7 +191,9 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between px-6 py-5">
                   <div>
-                    <p className="text-sm font-medium text-white">New Password</p>
+                    <p className="text-sm font-medium text-white">
+                      New Password
+                    </p>
                     <p className="mt-1 text-xs text-gray-400">
                       ••••••••••
                     </p>
