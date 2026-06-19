@@ -18,7 +18,7 @@ func (r *userRepository) CreateUser(user *models.User) error {
 		INSERT INTO users (id, email, password, first_name, last_name, date_of_birth, avatar, nickname, about_me, is_public)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 	`, user.ID, user.Email, user.Password, user.FirstName, user.LastName,
-		user.DateOfBirth, user.Avatar, user.Nickname, user.AboutMe, user.IsPublic)
+		user.DateOfBirth, user.Avatar, user.NickName, user.AboutMe, user.IsPublic)
 	return err
 }
 
@@ -30,7 +30,7 @@ func (r *userRepository) GetUserByEmail(email string) (*models.User, error) {
 
 	var u models.User
 	err := row.Scan(&u.ID, &u.Email, &u.Password, &u.FirstName, &u.LastName,
-		&u.DateOfBirth, &u.Avatar, &u.Nickname, &u.AboutMe, &u.IsPublic, &u.CreatedAt)
+		&u.DateOfBirth, &u.Avatar, &u.NickName, &u.AboutMe, &u.IsPublic, &u.CreatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (r *userRepository) GetUserByID(id string) (*models.User, error) {
 
 	var u models.User
 	err := row.Scan(&u.ID, &u.Email, &u.Password, &u.FirstName, &u.LastName,
-		&u.DateOfBirth, &u.Avatar, &u.Nickname, &u.AboutMe, &u.IsPublic, &u.CreatedAt)
+		&u.DateOfBirth, &u.Avatar, &u.NickName, &u.AboutMe, &u.IsPublic, &u.CreatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (r *userRepository) UpdateUser(user *models.User) error {
 		UPDATE users
 		SET first_name = ?, last_name = ?, date_of_birth = ?, nickname = ?, about_me = ?
 		WHERE id = ?
-	`, user.FirstName, user.LastName, user.DateOfBirth, user.Nickname, user.AboutMe, user.ID)
+	`, user.FirstName, user.LastName, user.DateOfBirth, user.NickName, user.AboutMe, user.ID)
 	return err
 }
 

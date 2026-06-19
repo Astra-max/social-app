@@ -72,7 +72,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		Nickname:    user.Nickname,
+		NickName:    user.NickName,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -119,7 +119,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		Nickname:    user.Nickname,
+		NickName:    user.NickName,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -178,7 +178,7 @@ func (h *AuthHandler) Me(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		Nickname:    user.Nickname,
+		NickName:    user.NickName,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -218,7 +218,7 @@ func (h *AuthHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		Nickname:    user.Nickname,
+		NickName:    user.NickName,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})
@@ -252,7 +252,7 @@ func (h *AuthHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		LastName:    user.LastName,
 		DateOfBirth: user.DateOfBirth,
 		Avatar:      user.Avatar,
-		Nickname:    user.Nickname,
+		NickName:    user.NickName,
 		AboutMe:     user.AboutMe,
 		IsPublic:    user.IsPublic,
 	})

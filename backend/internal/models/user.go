@@ -10,7 +10,7 @@ type User struct {
 	LastName    string
 	DateOfBirth string
 	Avatar      string
-	Nickname    string
+	NickName    string
 	AboutMe     string
 	IsPublic    bool
 	CreatedAt   time.Time
@@ -24,7 +24,7 @@ type RegisterRequest struct {
 	LastName    string `json:"last_name"`
 	DateOfBirth string `json:"date_of_birth"`
 	Avatar      string `json:"avatar, omitempty"`
-	Nickname    string `json:"nickname,omitempty"`
+	NickName    string `json:"nickname,omitempty"`
 	AboutMe     string `json:"about_me,omitempty"`
 }
 
@@ -42,7 +42,7 @@ type UserResponse struct {
 	LastName    string `json:"last_name"`
 	DateOfBirth string `json:"date_of_birth"`
 	Avatar      string `json:"avatar"`
-	Nickname    string `json:"nickname"`
+	NickName    string `json:"nickname"`
 	AboutMe     string `json:"about_me"`
 	IsPublic    bool   `json:"is_public"`
 }
@@ -51,7 +51,7 @@ type UpdateProfileRequest struct {
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"`
 	DateOfBirth string `json:"date_of_birth"`
-	Nickname    string `json:"nickname"`
+	NickName    string `json:"nickname"`
 	AboutMe     string `json:"about_me"`
 }
 
