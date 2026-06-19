@@ -8,6 +8,7 @@ import (
 	repoSqlite "social-network/backend/internal/repositories/sqlite"
 	"social-network/backend/internal/routes"
 	"social-network/backend/internal/services"
+	"social-network/backend/internal/middleware"
 	dbSqlite "social-network/backend/pkg/db/sqlite"
 )
 
@@ -48,5 +49,15 @@ func New() (*App, error) {
 	
 	routes.Register(mux, authHandler, followerHandler, postHandler, notificationHandler, sessionService)
 	log.Println("app initialised")
+
 	return &App{Router: mux}, nil
+}
+
+
+func (a *App) ChainMiddlewares() http.Handler {
+	nextMiddleware := middleware.ChainMiddlewares(
+		a.Router,
+		middleware.Cors,
+	)
+	return nextMiddleware
 }
