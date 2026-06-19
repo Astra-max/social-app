@@ -3,8 +3,7 @@ package app
 import (
 	"log"
 	"net/http"
-	"os" // Added to handle avatar directory creation
-
+	"os"
 	"social-network/backend/internal/handlers"
 	repoSqlite "social-network/backend/internal/repositories/sqlite"
 	"social-network/backend/internal/routes"
@@ -28,20 +27,26 @@ func New() (*App, error) {
 	// 2. repos
 	userRepo := repoSqlite.NewUserRepository(db)
 	sessionRepo := repoSqlite.NewSessionRepository(db)
+	followerRepo := repoSqlite.NewFollowerRepository(db)
+	notificationRepo := repoSqlite.NewNotificationRepository(db)
+	postRepo := repoSqlite.NewPostRepository(db)
 
 	// 3. services
 	userService := services.NewUserService(userRepo)
 	sessionService := services.NewSessionService(sessionRepo)
-
+	followerService := services.NewFollowerService(followerRepo, userRepo, notificationRepo)
+	postService := services.NewPostService(postRepo, followerRepo, notificationRepo, userRepo)
+	notificationService := services.NewNotificationService(notificationRepo)
 	// 4. handlers
 	authHandler := handlers.NewAuthHandler(userService, sessionService)
+	followerHandler := handlers.NewFollowerHandler(followerService)
+	postHandler := handlers.NewPostHandler(postService)
+	notificationHandler := handlers.NewNotificationHandler(notificationService)
 
 	// 5. routes
 	mux := http.NewServeMux()
-
-	// Pass sessionService as the third parameter here
-	routes.Register(mux, authHandler, sessionService)
-
+	
+	routes.Register(mux, authHandler, followerHandler, postHandler, notificationHandler, sessionService)
 	log.Println("app initialised")
 	return &App{Router: mux}, nil
 }
