@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/store/hooks";
 import { Api } from "@/services/axios";
 import { setSession, logout } from "@/store/features/authSlice";
-import { setAccessToken } from "@/services/token";
 
 export default function AuthProvider({
   children,
@@ -15,39 +14,27 @@ export default function AuthProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const initAuth = async () => {
+    const checkSession = async () => {
       try {
-        // 🔐 ask backend if session is valid
-        const res = await Api.post("/auth/refresh");
+        const res = await Api.get("/auth/me", {
+          withCredentials: true,
+        });
 
-        const { accessToken, user } = res.data;
-
-        setAccessToken(accessToken);
-        dispatch(setSession({ user }));
-
-      } catch (err) {
+        dispatch(setSession({ user: res.data.user }));
+      } catch {
         dispatch(logout());
-        setAccessToken(null);
       } finally {
         setLoading(false);
       }
     };
 
-    initAuth();
+    checkSession();
   }, [dispatch]);
 
-  // prevent UI flash
   if (loading) {
     return (
-      <div style={{
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#111",
-        color: "#fff"
-      }}>
-        Loading session...
+      <div style={{ color: "#fff", padding: "2rem" }}>
+        Checking session...
       </div>
     );
   }

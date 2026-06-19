@@ -18,7 +18,7 @@ export interface AuthState {
     user: User;
     accessToken: null;
     loading: boolean;
-    error: null;
+    error: null | string;
     isAuthenticated: boolean;
 }
 
@@ -87,8 +87,8 @@ export interface UserProfileData {
 
 export interface ChatMessages {
     messageId: string;
-    senderId: number;
-    receiverId: number;
+    senderId: string;
+    receiverId: string;
     content: string;
     createdAt: string;
 }
