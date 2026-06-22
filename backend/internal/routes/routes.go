@@ -5,6 +5,7 @@ import (
 	"social-network/backend/internal/handlers"
 	"social-network/backend/internal/middleware"
 	"social-network/backend/internal/services"
+	"social-network/backend/internal/ws"
 )
 
 func Register(
@@ -16,6 +17,22 @@ func Register(
 	sessionService *services.SessionService,
 ) {
 	authWithSession := middleware.AuthMiddleware(sessionService)
+
+	userService := services.NewUserService()
+	sessionService := services.NewSessionService()
+	chatService := services.NewChatService()
+	messageService := services.NewMessageService(chatService)
+	
+	// Initialize WebSocket hub
+	hub := websocket.NewHub(chatService, messageService)
+	go hub.Run()
+	
+	// Initialize handlers
+	authHandler := handlers.NewAuthHandler(userService, sessionService)
+	wsHandler := handlers.NewWebSocketHandler(hub)
+	
+	// Initialize middleware
+	authMiddleware := middleware.NewAuthMiddleware(sessionService)
 
 	// Health check
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
@@ -56,4 +73,7 @@ func Register(
 	// Private Notification Routes
 	mux.Handle("/api/notifications", authWithSession(http.HandlerFunc(notificationHandler.GetNotifications)))
 	mux.Handle("/api/notifications/{notification_id}/read", authWithSession(http.HandlerFunc(notificationHandler.MarkAsRead)))
+
+	// chats
+	http.HandleFunc("/ws/chat", authMiddleware.Authenticate(wsHandler.HandleWebSocket))
 }

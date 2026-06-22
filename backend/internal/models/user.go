@@ -18,14 +18,14 @@ type User struct {
 
 // what frontend sends when a user signs up
 type RegisterRequest struct {
-	Email       string `json:"email"`
+	Email       string `json:"emailAddr"`
 	Password    string `json:"password"`
-	FirstName   string `json:"first_name"`
-	LastName    string `json:"last_name"`
-	DateOfBirth string `json:"date_of_birth"`
-	Avatar      string `json:"avatar, omitempty"`
-	NickName    string `json:"nickname, omitempty"`
-	AboutMe     string `json:"about_me,omitempty"`
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"secondName"`
+	DateOfBirth string `json:"dateOfBirth"`
+	//Avatar      string `json:"avatar,omitempty"`
+	NickName    string `json:"nickName,omitempty"`
+	AboutMe     string `json:"aboutMe,omitempty"`
 }
 
 // what frontend sends on login

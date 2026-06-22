@@ -1,9 +1,11 @@
 "use client"
 
+import { authSelector } from "@/store/features/authSlice";
 import { ChatMessages } from "@/types";
 import { Send } from "lucide-react"
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 interface SendMessageType {
   sendMessage: (message: ChatMessages) => void;
@@ -13,17 +15,22 @@ export default function SendTextMessage({ sendMessage }: SendMessageType) {
     const [message, setMessage] = useState<string>("");
     const { userId } = useParams()
 
-    const receiverId = Number(userId);
+    const { user } = useSelector(authSelector)
+
 
     function HandleSend() {
       if (!message.trim()) return;
-      sendMessage({
+
+      if (user != null && userId !== undefined) {
+         sendMessage({
         messageId: crypto.randomUUID(),
-        senderId: Id,
-        receiverId,
+        senderId: user.userId,
+        receiverId: String(userId),
         content: message.trim(),
         createdAt: new Date().toISOString()
       })
+      }
+     
       setMessage("")
     }
 

@@ -9,11 +9,15 @@ import {
   PaintBucket,
   ShieldAlert,
   Ban,
+  Home,
   Languages,
   HelpCircle,
+  LogOut,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const TABS = [
+  { id: "home", label: "Home", icon: Home },
   { id: "account", label: "Account", icon: User },
   { id: "profile", label: "Profile", icon: UserCircle },
   { id: "privacy", label: "Privacy", icon: ShieldCheck },
@@ -25,142 +29,200 @@ const TABS = [
   { id: "help", label: "Help & Support", icon: HelpCircle },
 ] as const;
 
+const tabButtonClass = (active: boolean) =>
+  active ? "text-[#14afa7] font-bold" : "text-white";
+
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState<string>("account");
+  const [activeTab, setActiveTab] = useState("account");
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [privateProfile, setPrivateProfile] = useState(true);
 
+  const router = useRouter();
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-app-bg px-4 py-10">
-      <section className="grid w-full max-w-3xl grid-cols-1 overflow-hidden rounded-3xl border border-border-subtle bg-panel shadow-2xl shadow-black/40 sm:grid-cols-[200px_1fr]">
-        {/* Tabs */}
-        <nav className="border-b border-border-subtle p-4 sm:border-b-0 sm:border-r sm:p-5">
-          <h1 className="mb-3 px-2 text-xl font-bold tracking-tight text-white">
+    <div className="w-full h-screen bg-[#181818]">
+      <div className="grid h-full grid-cols-1 sm:grid-cols-[340px_1fr]">
+        {/* Sidebar */}
+        <nav className="flex h-full min-h-screen flex-col bg-[#202020] p-5">
+          <h1 className="mb-6 text-3xl font-bold tracking-tight text-[#14afa7]">
             Settings
           </h1>
-          <ul className="flex gap-1 overflow-x-auto sm:flex-col sm:overflow-visible">
+
+          <ul className="flex flex-col gap-6">
             {TABS.map((tab) => {
               const Icon = tab.icon;
               const active = activeTab === tab.id;
+
               return (
-                <li key={tab.id} className="shrink-0">
+                <li key={tab.id}>
                   <button
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex w-full items-center gap-2.5 whitespace-nowrap rounded-xl px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+                    onClick={() => {
+                      if (tab.id === "home") {
+                        router.push("/view/Home");
+                        return;
+                      }
+
+                      setActiveTab(tab.id);
+                    }}
+                    className={`flex w-full items-center gap-2 py-3 text-left text-[15px] font-medium cursor-pointer ${tabButtonClass(
                       active
-                        ? "bg-primary/90 text-white"
-                        : "text-muted hover:bg-panel-soft hover:text-white"
-                    }`}
+                    )}`}
                   >
-                    <Icon size={16} strokeWidth={2} />
+                    <Icon size={20} strokeWidth={2} />
                     {tab.label}
                   </button>
                 </li>
               );
             })}
           </ul>
+
+          <div className="mt-auto pt-10">
+            <button className="inline-flex items-center gap-2 text-base text-white">
+              <LogOut className="text-red-500" size={20} strokeWidth={2} />
+              Logout
+            </button>
+          </div>
         </nav>
 
         {/* Content */}
-        <div className="space-y-5 p-5 sm:p-6">
-          {/* Appearance */}
-          <div className="rounded-2xl border border-border-subtle bg-panel-soft">
-            <h2 className="border-b border-border-subtle px-5 py-3.5 text-[15px] font-semibold text-white">
-              Appearance
-            </h2>
-            <div className="flex items-center justify-between gap-4 px-5 py-4">
-              <div>
-                <p className="text-sm font-medium text-white">Theme</p>
-                <p className="mt-0.5 text-xs text-muted">
-                  Choose your preferred theme.
-                </p>
-              </div>
-              <div className="flex rounded-lg border border-border-strong p-0.5">
-                {(["light", "dark"] as const).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTheme(t)}
-                    className={`rounded-md px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
-                      theme === t
-                        ? "bg-primary/90 text-white"
-                        : "text-muted hover:text-white"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div className="h-full overflow-y-auto px-6 py-4">
+          <div className="space-y-6">
+            {/* Appearance */}
+            <div className="rounded-3xl border border-[#2d2d2d] bg-[#222222]">
+              <h2 className="px-6 py-4 text-base font-semibold text-white">
+                Appearance
+              </h2>
 
-          {/* Profile Privacy */}
-          <div className="rounded-2xl border border-border-subtle bg-panel-soft">
-            <h2 className="border-b border-border-subtle px-5 py-3.5 text-[15px] font-semibold text-white">
-              Profile Privacy
-            </h2>
-            <div className="flex items-center justify-between gap-4 px-5 py-4">
-              <div>
-                <p className="text-sm font-medium text-white">Private Profile</p>
-                <p className="mt-0.5 text-xs text-muted">
-                  Only approved followers can see your posts
-                </p>
-              </div>
-              <button
-                role="switch"
-                aria-checked={privateProfile}
-                onClick={() => setPrivateProfile((v) => !v)}
-                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
-                  privateProfile ? "bg-primary" : "bg-border-strong"
-                }`}
-              >
-                <span
-                  className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                    privateProfile ? "translate-x-[20px]" : "translate-x-0.5"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
-
-          {/* Account */}
-          <div className="rounded-2xl border border-border-subtle bg-panel-soft">
-            <h2 className="border-b border-border-subtle px-5 py-3.5 text-[15px] font-semibold text-white">
-              Account
-            </h2>
-            <div className="divide-y divide-border-subtle">
-              <div className="flex items-center justify-between gap-4 px-5 py-4">
+              <div className="flex items-center justify-between gap-4 px-6 py-5">
                 <div>
-                  <p className="text-sm font-medium text-white">Email</p>
-                  <p className="mt-0.5 text-xs text-muted">jane.doe@example.com</p>
-                </div>
-                <button className="text-sm font-semibold text-primary hover:text-violet-300">
-                  Change
-                </button>
-              </div>
-              <div className="flex items-center justify-between gap-4 px-5 py-4">
-                <div>
-                  <p className="text-sm font-medium text-white">Password</p>
-                  <p className="mt-0.5 text-xs text-muted">••••••••••</p>
-                </div>
-                <button className="text-sm font-semibold text-primary hover:text-violet-300">
-                  Change
-                </button>
-              </div>
-              <div className="flex items-center justify-between gap-4 px-5 py-4">
-                <div>
-                  <p className="text-sm font-medium text-danger">Delete Account</p>
-                  <p className="mt-0.5 text-xs text-muted">
-                    Permanently delete your account
+                  <p className="text-sm font-medium text-white">Theme</p>
+                  <p className="mt-1 text-xs text-gray-400">
+                    Choose your preferred theme.
                   </p>
                 </div>
-                <button className="rounded-lg bg-danger-bg px-3.5 py-1.5 text-sm font-semibold text-danger transition-colors hover:bg-danger/20">
-                  Delete
+
+                <div className="flex w-72 rounded-lg bg-[#111] p-1">
+                  {(["light", "dark"] as const).map((t) => (
+                    <button
+                      key={t}
+                      onClick={() => setTheme(t)}
+                      className={`flex-1 rounded-lg py-2 text-sm font-medium capitalize transition ${
+                        theme === t
+                          ? "bg-[--primary-theme] text-white"
+                          : "text-gray-400 hover:bg-[--primary-theme] hover:text-white"
+                      }`}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Profile Privacy */}
+            <div className="rounded-3xl border border-[#2d2d2d] bg-[#222222]">
+              <h2 className="px-6 py-4 text-base font-semibold text-white">
+                Profile Privacy
+              </h2>
+
+              <div className="flex items-center justify-between gap-4 px-6 py-5">
+                <div>
+                  <p className="text-sm font-medium text-white">
+                    Private Profile
+                  </p>
+                  <p className="mt-1 text-xs text-gray-400">
+                    Only approved followers can see your posts.
+                  </p>
+                </div>
+
+                <button
+                  role="switch"
+                  aria-checked={privateProfile}
+                  onClick={() => setPrivateProfile((prev) => !prev)}
+                  className={`relative h-7 w-12 rounded-full transition ${
+                    privateProfile ? "bg-[--primary-theme]" : "bg-[#111]"
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 h-6 w-6 rounded-full bg-white transition-transform ${
+                      privateProfile
+                        ? "translate-x-[22px]"
+                        : "translate-x-0.5"
+                    }`}
+                  />
                 </button>
+              </div>
+            </div>
+
+            {/* Account */}
+            <div className="rounded-3xl border border-[#2d2d2d] bg-[#222222]">
+              <h2 className="px-6 py-4 text-base font-semibold text-white">
+                Account
+              </h2>
+
+              <div>
+                <div className="flex items-center justify-between px-6 py-5">
+                  <div>
+                    <p className="text-sm font-medium text-white">Email</p>
+                    <p className="mt-1 text-xs text-gray-400">
+                      jane.doe@example.com
+                    </p>
+                  </div>
+
+                  <button className="text-sm font-semibold text-[--primary-theme]">
+                    Change
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between px-6 py-5">
+                  <div>
+                    <p className="text-sm font-medium text-white">
+                      Current Password
+                    </p>
+                    <p className="mt-1 text-xs text-gray-400">
+                      ••••••••••
+                    </p>
+                  </div>
+
+                  <button className="text-sm font-semibold text-[--primary-theme]">
+                    Change
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between px-6 py-5">
+                  <div>
+                    <p className="text-sm font-medium text-white">
+                      New Password
+                    </p>
+                    <p className="mt-1 text-xs text-gray-400">
+                      ••••••••••
+                    </p>
+                  </div>
+
+                  <button className="text-sm font-semibold text-[--primary-theme]">
+                    Change
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between px-6 py-5">
+                  <div>
+                    <p className="text-sm font-medium text-red-400">
+                      Delete Account
+                    </p>
+                    <p className="mt-1 text-xs text-gray-400">
+                      Permanently delete your account.
+                    </p>
+                  </div>
+
+                  <button className="rounded-lg bg-[#111] px-4 py-2 text-sm font-semibold text-red-400">
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }

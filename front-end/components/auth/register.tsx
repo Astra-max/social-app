@@ -3,21 +3,49 @@
 import { ButtonData } from "@/types";
 import { Button } from "../ui/button";
 import style from "@/styles/register.module.css";
-import loginStyle from "@/styles/login.module.css";
 import { useState } from "react";
 import { Camera } from "lucide-react";
+import { useAppDispatch } from "@/store/hooks";
+import { registerUser } from "@/store/features/authSlice";
 
+
+interface Props {
+  setRegister: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const btnStyle: ButtonData = {
   text: "create account",
   style: { backgroundColor: "var(--primary-theme)", marginTop: "1rem" },
 };
 
-export default function RegisterUI() {
+export default function RegisterUI({ setRegister }: Props) {
   const [about, setAbout] = useState<string>("");
   const [remove, setRemove] = useState<boolean>(false);
 
+  const dispatch = useAppDispatch();
+
   const HandleRemove = () => setRemove((prev) => !prev);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = new FormData(e.currentTarget);
+
+    const fileInput = document.querySelector(
+      'input[name="userProfile"]'
+    ) as HTMLInputElement;
+
+    if (fileInput?.files?.[0]) {
+      form.append("avatar", fileInput.files[0]);
+    }
+
+    const result = await dispatch(registerUser(form));
+
+    if (registerUser.fulfilled.match(result)) {
+      console.log("Registered:", result.payload);
+      setRegister(false);
+    }
+  };
 
   const HandleSetAboutMe = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setAbout(event.target.value);
@@ -25,7 +53,7 @@ export default function RegisterUI() {
   return (
     <>
       {!remove && (
-        <form className={style.registerMainCont} action="">
+        <form className={style.registerMainCont} action="" onSubmit={handleSubmit}>
           <div className={style.imageAndData}>
             <div>
               <UploadAvatar />
@@ -42,7 +70,7 @@ export default function RegisterUI() {
                 <div>
                   <p className={style.inputPtag}>First Name</p>
                   <input
-                    className={loginStyle.userInput}
+                    className={style.inputField}
                     type="text"
                     name="firstName"
                     id="first-name"
@@ -53,7 +81,7 @@ export default function RegisterUI() {
                 <div>
                   <p className={style.inputPtag}>Second Name</p>
                   <input
-                    className={loginStyle.userInput}
+                    className={style.inputField}
                     type="text"
                     name="secondName"
                     id="second-name"
@@ -65,7 +93,7 @@ export default function RegisterUI() {
               <div>
                 <p className={style.inputPtag}>Nick Name</p>
                 <input
-                  className={loginStyle.userInput}
+                  className={style.inputField}
                   type="text"
                   name="nickName"
                   id="nick-name"
@@ -75,7 +103,7 @@ export default function RegisterUI() {
               <div>
                 <p className={style.inputPtag}>Date of birth</p>
                 <input
-                  className={loginStyle.userInput}
+                  className={style.inputField}
                   type="date"
                   name="dateOfBirth"
                   id="dob"
@@ -84,7 +112,7 @@ export default function RegisterUI() {
               <div>
                 <p className={style.inputPtag}>Email Address</p>
                 <input
-                  className={loginStyle.userInput}
+                  className={style.inputField}
                   type="email"
                   name="emailAddr"
                   id="email"
@@ -93,9 +121,19 @@ export default function RegisterUI() {
                 />
               </div>
               <div>
+                <p className={style.inputPtag}>Password</p>
+                <input
+                  className={style.inputField}
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+              <div>
                 <p className={style.inputPtag}>About me</p>
                 <textarea
-                  className={loginStyle.userInput}
+                  className={style.textareaField}
                   name="aboutMe"
                   id="about-me"
                   value={about}
@@ -111,6 +149,7 @@ export default function RegisterUI() {
                   Have account{" "}
                   <span
                     style={{ color: "var(--primary-theme)", cursor: "pointer" }}
+                    onClick={() => setRegister(false)}
                   >
                     login
                   </span>

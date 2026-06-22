@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"fmt"
 	"path/filepath"
 	"social-network/backend/internal/models"
 	"social-network/backend/internal/services"
@@ -43,6 +44,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 
 	user, err := h.userService.Register(&req)
 	if err != nil {
+		fmt.Println(err, "error adding to users table")
 		http.Error(w, err.Error(), http.StatusConflict)
 		return
 	}
