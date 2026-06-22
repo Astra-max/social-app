@@ -57,7 +57,7 @@ func New() (*App, error) {
 func (a *App) ChainMiddlewares() http.Handler {
 	nextMiddleware := middleware.ChainMiddlewares(
 		a.Router,
-		middleware.Cors,
+		middleware.CORSMiddleware,
 	)
 	return nextMiddleware
 }
