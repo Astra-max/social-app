@@ -1,6 +1,5 @@
 "use client";
 
-import { ButtonData } from "@/types";
 import { Button } from "../ui/button";
 import style from "@/styles/login.module.css";
 import { Lock, Unlock, Mail } from "lucide-react";
@@ -20,7 +19,6 @@ export default function LogIn({ setRegister }: Props) {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const { loading, error } = useAppSelector(authSelector);
 
@@ -42,8 +40,6 @@ export default function LogIn({ setRegister }: Props) {
       // backend already sets session cookie
       // we just store user in redux
       dispatch(setSession({ user: result.payload }));
-
-      router.replace("/view/Home");
     }
   };
 
