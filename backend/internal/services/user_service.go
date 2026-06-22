@@ -103,8 +103,8 @@ func (s *UserService) UpdateProfile(userID string, req *models.UpdateProfileRequ
 	if req.DateOfBirth != "" {
 		user.DateOfBirth = req.DateOfBirth
 	}
-	if req.Nickname != "" {
-		user.NickName = req.Nickname
+	if req.NickName != "" {
+		user.NickName = req.NickName
 	}
 	if req.AboutMe != "" {
 		user.AboutMe = req.AboutMe

@@ -51,7 +51,7 @@ type UpdateProfileRequest struct {
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"`
 	DateOfBirth string `json:"date_of_birth"`
-	Nickname    string `json:"nickname"`
+	NickName    string `json:"nickname"`
 	AboutMe     string `json:"about_me"`
 }
 

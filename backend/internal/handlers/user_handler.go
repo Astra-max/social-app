@@ -111,7 +111,6 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		Path:     "/",
 		SameSite: http.SameSiteLaxMode,
 	})
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(models.UserResponse{
 		ID:          user.ID,
