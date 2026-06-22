@@ -29,7 +29,7 @@ export default function ChatContentLayout({
         <SendTextMessage sendMessage={sendMessage} />
 
         {!connected && (
-          <p className="text-red-500 absolute left-20">
+          <p className="text-red-500 absolute left-300 top-100">
             Connection offline...
           </p>
         )}
