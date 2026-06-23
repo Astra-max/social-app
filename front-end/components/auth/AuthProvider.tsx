@@ -31,7 +31,7 @@ export default function AuthProvider({
 
   if (loading) {
     return (
-      <div style={{ color: "#fff", padding: "2rem" }}>
+      <div className="items-center text-align-middle">
         Checking session...
       </div>
     );

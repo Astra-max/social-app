@@ -5,7 +5,6 @@ import style from "@/styles/login.module.css";
 import { Lock, Unlock, Mail } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loginUser, authSelector, setSession } from "@/store/features/authSlice";
