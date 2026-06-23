@@ -6,7 +6,7 @@ interface Props {
   url?: string;
 }
 
-export default function UserProfileImage({ url="/profile.svg"  }: Props) {
+export default function UserProfileImage({ url="/User.png"  }: Props) {
 
   return (
     <div>

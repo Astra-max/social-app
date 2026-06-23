@@ -14,7 +14,6 @@ import { authSelector } from "@/store/features/authSlice";
 import LogIn from "../auth/login";
 import { Button } from "../ui/button";
 import RegisterUI from "../auth/register";
-import ProtectedRoute from "../protected/protected";
 
 
 interface SearchUIProps {
