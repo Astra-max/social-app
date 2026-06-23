@@ -91,3 +91,11 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+func GetUserID(r *http.Request) string {
+	userID, ok := r.Context().Value(UserIDKey).(string)
+	if !ok {
+		return ""
+	}
+	return userID
+}

@@ -1,11 +1,11 @@
-import UserPersonalData from "@/components/header/profile/profile";
 import DefaultLayout from "@/components/layouts/defaultLayout";
+import ProfilePage from "./profile";
 
 
 export default function Profile() {
     return (
         <DefaultLayout>
-            <UserPersonalData />
+            <ProfilePage />
         </DefaultLayout>
     )
 }

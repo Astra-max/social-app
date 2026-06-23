@@ -10,13 +10,13 @@ import (
 )
 
 type UserService struct {
-	repo interfaces.UserRepository
+	repo         interfaces.UserRepository
+	followerRepo interfaces.FollowerRepository
 }
 
-func NewUserService(repo interfaces.UserRepository) *UserService {
-	return &UserService{repo: repo}
+func NewUserService(repo interfaces.UserRepository, followerRepo interfaces.FollowerRepository) *UserService {
+	return &UserService{repo: repo, followerRepo: followerRepo}
 }
-
 func (s *UserService) Register(req *models.RegisterRequest) (*models.User, error) {
 	// check if email already exists
 	existing, _ := s.repo.GetUserByEmail(req.Email)
@@ -68,21 +68,23 @@ func (s *UserService) GetProfile(viewerID, profileID string) (*models.User, erro
 	if err != nil {
 		return nil, errors.New("user not found")
 	}
-
 	// own profile — always visible
 	if viewerID == profileID {
 		return user, nil
 	}
-
 	// public profile — visible to everyone
 	if user.IsPublic {
 		return user, nil
 	}
-
-	// private profile — only visible to followers
-	// we pass this check to the handler layer using a sentinel error
-	// so the handler knows to check followers table
-	return user, errors.New("private")
+	// private profile — only visible if viewer follows the owner
+	isFollowing, err := s.followerRepo.IsFollowing(viewerID, profileID)
+	if err != nil {
+		return nil, errors.New("could not verify follow status")
+	}
+	if !isFollowing {
+		return nil, errors.New("private")
+	}
+	return user, nil
 }
 
 func (s *UserService) UpdateProfile(userID string, req *models.UpdateProfileRequest) (*models.User, error) {
@@ -101,8 +103,8 @@ func (s *UserService) UpdateProfile(userID string, req *models.UpdateProfileRequ
 	if req.DateOfBirth != "" {
 		user.DateOfBirth = req.DateOfBirth
 	}
-	if req.Nickname != "" {
-		user.NickName = req.Nickname
+	if req.NickName != "" {
+		user.NickName = req.NickName
 	}
 	if req.AboutMe != "" {
 		user.AboutMe = req.AboutMe

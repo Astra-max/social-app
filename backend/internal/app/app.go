@@ -33,7 +33,7 @@ func New() (*App, error) {
 	postRepo := repoSqlite.NewPostRepository(db)
 
 	// 3. services
-	userService := services.NewUserService(userRepo)
+	userService := services.NewUserService(userRepo, followerRepo)
 	sessionService := services.NewSessionService(sessionRepo)
 	followerService := services.NewFollowerService(followerRepo, userRepo, notificationRepo)
 	postService := services.NewPostService(postRepo, followerRepo, notificationRepo, userRepo)
@@ -57,7 +57,7 @@ func New() (*App, error) {
 func (a *App) ChainMiddlewares() http.Handler {
 	nextMiddleware := middleware.ChainMiddlewares(
 		a.Router,
-		middleware.Cors,
+		middleware.CORSMiddleware,
 	)
 	return nextMiddleware
 }
