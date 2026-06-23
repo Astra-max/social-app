@@ -1,11 +1,13 @@
 import Image from "next/image";
 import style from "@/styles/profile.module.css";
 
+
 interface Props {
   url?: string;
 }
 
-export default function UserProfileImage({ url = "/maodongo.jpeg" }: Props) {
+export default function UserProfileImage({ url="/profile.svg"  }: Props) {
+
   return (
     <div>
       <div className={style.imageCont}>

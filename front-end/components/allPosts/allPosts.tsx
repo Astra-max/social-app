@@ -10,6 +10,8 @@ import { allPostData } from "@/libs/dummy";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import { PostInteractions } from "./interactions";
+import { useAppSelector } from "@/store/hooks";
+import { authSelector } from "@/store/features/authSlice";
 
 const data: ButtonData = {
   text: "create post",
@@ -94,10 +96,10 @@ export function UserPostProfile({
   datePosted,
   privacy,
 }: Props) {
+
   return (
     <div className={style.postUserProfile}>
       <div className={style.userImageName}>
-
         <UserProfileImage url={userImage} />
 
         <span className={style.userPostProfile}>

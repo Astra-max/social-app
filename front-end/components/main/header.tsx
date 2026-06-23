@@ -1,14 +1,20 @@
 "use client";
 
 import { ArrowRight, Menu, Search } from "lucide-react";
-import { FormState } from "@/types";
-import { useActionState } from "react";
+import { ButtonData, FormState } from "@/types";
+import { CSSProperties, useActionState, useState } from "react";
 import { Home, Bell, MessageSquareDot } from "lucide-react";
 import "@/styles/nav-side-bar.css";
 import UserProfileImage from "../header/profile/userProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { setToggle } from "@/store/features/toggleSideBarSlice";
 import { RootState } from "@/store/store";
+import { useAppSelector } from "@/store/hooks";
+import { authSelector } from "@/store/features/authSlice";
+import LogIn from "../auth/login";
+import { Button } from "../ui/button";
+import RegisterUI from "../auth/register";
+import ProtectedRoute from "../protected/protected";
 
 
 interface SearchUIProps {
@@ -97,16 +103,57 @@ export function ToggleSideBar() {
 }
 
 export default function HomeProfileUI() {
+  const { isAuthenticated } = useAppSelector(authSelector);
+
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [register, setRegister] = useState(false);
+
+  function handleLogin() {
+    setShowAuthModal(true);
+  }
+
+  const data: ButtonData = {
+    text: "Login",
+    style: btnStyle,
+    onClick: handleLogin,
+  };
+
   return (
-    <div className="home-d-n-main">
-      <div>
-        <ToggleSideBar />
+    <>
+      <div className="home-d-n-main">
+        <div>
+          <ToggleSideBar />
+        </div>
+
+        <div className="display-home-nav">
+          <SearchUI />
+          <HomeNavElements />
+
+          {isAuthenticated ? (
+            <UserProfileImage />
+          ) : (
+            <div>
+              <Button data={data} />
+            </div>
+          )}
+        </div>
       </div>
-      <div className="display-home-nav">
-        <SearchUI />
-        <HomeNavElements />
-        <UserProfileImage />
-      </div>
-    </div>
+
+      {showAuthModal && !isAuthenticated && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-[9999]">
+          {register ? (
+            <RegisterUI setRegister={setRegister} />
+          ) : (
+            <LogIn setRegister={setRegister} />
+          )}
+        </div>
+      )}
+    </>
   );
+}
+
+const btnStyle: CSSProperties = {
+  padding: "0.4rem 0.8rem",
+  backgroundColor: "var(--primary-theme)",
+  color: "#fff",
 }
