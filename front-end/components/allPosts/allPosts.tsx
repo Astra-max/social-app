@@ -101,12 +101,13 @@ export function UserPostProfile({
         <UserProfileImage url={userImage} />
 
         <span className={style.userPostProfile}>
-          <span className="flex gap-2 font-bold">{fullName}
+          <span className="flex gap-2 items-center font-bold">
+            {fullName}
             <div className="">
-              {privacy === "public" ? <Eye /> : <LockIcon />}
+              {privacy === "public" ? <Eye className="text-gray-400" size={15} /> : <LockIcon className="text-gray-400" size={15} />}
             </div>
           </span>
-          <p className="text-sm">posted on {datePosted}</p>
+          <p className="text-sm">posted at {datePosted}</p>
         </span>
       </div>
       <div className="font-bold">
@@ -115,6 +116,7 @@ export function UserPostProfile({
     </div>
   );
 }
+
 
 interface ContentInterface {
   description: string;
