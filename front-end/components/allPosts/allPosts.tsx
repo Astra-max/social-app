@@ -101,13 +101,16 @@ export function UserPostProfile({
         <UserProfileImage url={userImage} />
 
         <span className={style.userPostProfile}>
-          <p>{fullName}</p>
-          <p>posted on {datePosted}</p>
+          <span className="flex gap-2 font-bold">{fullName}
+            <div className="">
+              {privacy === "public" ? <Eye /> : <LockIcon />}
+            </div>
+          </span>
+          <p className="text-sm">posted on {datePosted}</p>
         </span>
       </div>
-      <div className={style.userPrivacy}>
-        {privacy === "public" ? <Eye /> : <LockIcon />}
-        {status}
+      <div className="font-bold">
+        ....
       </div>
     </div>
   );
@@ -161,7 +164,7 @@ interface DescriptionProps {
   description: string;
 }
 
-export function PostDescriptionUI({ description } : DescriptionProps) {
+export function PostDescriptionUI({ description }: DescriptionProps) {
   return (
     <div>
       <p className={style.shoutDescription}>{description}</p>

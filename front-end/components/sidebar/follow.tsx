@@ -40,8 +40,8 @@ export function FollowUserUI({ data }: { data: FollowUsers }) {
           />
         </div>
         <div>
-          <p>{data.fullName}</p>
-          <p>{data.location}</p>
+          <p className="font-bold text-gray-300">{data.fullName}</p>
+          <p className="text-sm text-gray-300">{data.location}</p>
         </div>
       </div>
       <div>
