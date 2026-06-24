@@ -41,11 +41,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <StateProvider>
-          <ProtectedRoute>
             <AuthProvider>
-            {children}
+              <ProtectedRoute>
+                {children}
+              </ProtectedRoute>
           </AuthProvider>
-          </ProtectedRoute>
         </StateProvider>
       </body>
     </html>
