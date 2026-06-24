@@ -40,6 +40,19 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const logOutUser = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }: any) => {
+    try {
+      const res = await Api.post("/auth/logout");
+
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || "Failed to logout user");
+    }
+  }
+);
+
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (formData: FormData, { rejectWithValue }) => {
@@ -98,6 +111,12 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action: any) => {
         state.loading = false;
         state.error = action.payload;
+      })
+
+      // Logout
+      .addCase(logOutUser.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
       });
   },
 });
