@@ -59,9 +59,6 @@ export default function RegisterUI({ setRegister }: Props) {
               <UploadAvatar />
             </div>
             <div className={style.registerCont}>
-              <p className={style.removeRegister} onClick={HandleRemove}>
-                x
-              </p>
               <div>
                 <p className={style.pTitle}>Create your Account</p>
                 <p className={style.pGoing}>Signup to chat on social network</p>
@@ -164,14 +161,27 @@ export default function RegisterUI({ setRegister }: Props) {
 }
 
 export function UploadAvatar() {
+  const [fileName, setFileName] = useState<string | null>(null)
+  function handleChangeAvatar(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+
+    if (file) {
+      setFileName(file.name)
+    }
+  }
   return (
     <div className={style.avatarMain}>
       <label className={style.avatarCont}>
         <Camera size={70} style={{ color: "var(--primary-theme)" }} />
-        <input type="file" name="userProfile" accept="image/*" capture hidden />
+        <input type="file"
+         name="userProfile" 
+         accept="image/*" 
+         capture 
+         onChange={handleChangeAvatar}
+         hidden />
       </label>
       <div>
-        <p>Upload Avatar</p>
+        <p>{fileName}</p>
         <p>PNG, JPG, JPEG or GIF max 5mb</p>
       </div>
     </div>
