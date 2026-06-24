@@ -12,5 +12,4 @@ export const sidebarNav = [
     {id: 8,icon: Calendar, text: "Events"},
     {id: 9,icon: Settings, text: "Settings"},
     {id: 10, icon: User, text: "profile"},
-    {id: 11,icon: LogOut, text: "Logout"},
 ]
